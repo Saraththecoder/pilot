@@ -1,12 +1,76 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X, Image as ImageIcon } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Portfolio() {
   const [selectedMedia, setSelectedMedia] = useState<number | null>(null);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+            },
+          }
+        );
+      }
+
+      if (gridRef.current) {
+        const items = gsap.utils.toArray('.portfolio-item');
+        // Entrance animation
+        gsap.fromTo(
+          items,
+          { opacity: 0, scale: 0.9, y: 50 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "back.out(1.5)",
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: "top 80%",
+            },
+          }
+        );
+
+        // Parallax effect on scroll
+        items.forEach((item: any, i) => {
+          gsap.to(item, {
+            yPercent: (i % 2 === 0) ? -10 : 10,
+            ease: "none",
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            }
+          });
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   // Placeholder gallery data
   const galleryItems = [
@@ -18,53 +82,35 @@ export default function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="py-24 bg-[#050505] relative">
+    <section ref={sectionRef} id="portfolio" className="py-24 bg-[#050505] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div ref={headerRef} className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div>
-            <motion.h2 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-4"
-            >
+            <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-4">
               Our <span className="text-[var(--color-brand-orange)]">Portfolio</span>
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="font-inter text-gray-400 max-w-lg"
-            >
+            </h2>
+            <p className="font-inter text-gray-400 max-w-lg">
               A glimpse into our recent aerial projects across real estate, industrial inspections, and cinematic captures.
-            </motion.p>
+            </p>
           </div>
           
-          <motion.button
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+          <button
             onClick={() => setIsVideoModalOpen(true)}
             className="flex items-center gap-3 border border-[var(--color-brand-orange)] text-[var(--color-brand-orange)] px-6 py-3 rounded-full font-oswald uppercase tracking-widest font-bold hover:bg-[var(--color-brand-orange)] hover:text-white transition-all group shrink-0"
           >
             <Play className="w-5 h-5 fill-current group-hover:scale-110 transition-transform" />
             Watch Showreel
-          </motion.button>
+          </button>
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
           {galleryItems.map((item, idx) => (
-            <motion.div
+            <div
               key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
               onClick={() => setSelectedMedia(item.id)}
-              className={`${item.span} bg-[var(--color-brand-card)] border border-gray-800 rounded-xl overflow-hidden relative group cursor-pointer`}
+              className={`portfolio-item ${item.span} bg-[var(--color-brand-card)] border border-gray-800 rounded-xl overflow-hidden relative group cursor-pointer`}
             >
               <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-600 group-hover:text-[var(--color-brand-orange)] transition-colors z-10">
                 <ImageIcon className="w-8 h-8 mb-2" />
@@ -77,7 +123,7 @@ export default function Portfolio() {
                   View Image
                 </span>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

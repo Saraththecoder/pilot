@@ -18,11 +18,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -37,7 +37,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link href="#home" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
               <div className="relative w-10 h-10 md:w-12 md:h-12">
                 <Image 
                   src="/logo.png" 

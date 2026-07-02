@@ -1,9 +1,79 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MapPin, Phone, Mail, MessageCircle, Send } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Contact() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Banner Animation
+      if (bannerRef.current) {
+        gsap.fromTo(
+          bannerRef.current,
+          { opacity: 0, scale: 0.95, y: 50 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: bannerRef.current,
+              start: "top 85%",
+            }
+          }
+        );
+      }
+
+      // Contact Details Stagger
+      if (detailsRef.current) {
+        gsap.fromTo(
+          detailsRef.current.children,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "back.out(1.2)",
+            scrollTrigger: {
+              trigger: detailsRef.current,
+              start: "top 80%",
+            }
+          }
+        );
+      }
+
+      // Form Inputs Stagger
+      if (formRef.current) {
+        gsap.fromTo(
+          formRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: formRef.current,
+              start: "top 80%",
+            }
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -50,11 +120,11 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[var(--color-brand-dark)] relative">
+    <section ref={sectionRef} id="contact" className="py-24 bg-[var(--color-brand-dark)] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top CTA Banner */}
-        <div className="relative bg-[var(--color-brand-card)] border border-gray-800 rounded-3xl p-10 md:p-16 mb-20 overflow-hidden text-center">
+        <div ref={bannerRef} className="relative bg-[var(--color-brand-card)] border border-gray-800 rounded-3xl p-10 md:p-16 mb-20 overflow-hidden text-center">
           <div className="absolute inset-0 spotlight-glow opacity-60 z-0" />
           <div className="relative z-10">
             <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6">
@@ -80,7 +150,7 @@ export default function Contact() {
           <div>
             <h3 className="font-oswald text-3xl uppercase tracking-wider mb-8">Get In Touch</h3>
             
-            <div className="space-y-6 mb-10">
+            <div ref={detailsRef} className="space-y-6 mb-10">
               <div className="flex items-start gap-4">
                 <div className="bg-[var(--color-brand-card)] p-3 rounded-full border border-gray-800 text-[var(--color-brand-orange)]">
                   <Phone className="w-6 h-6" />
@@ -147,7 +217,7 @@ export default function Contact() {
           <div className="bg-[var(--color-brand-card)] p-8 md:p-10 rounded-3xl border border-gray-800">
             <h3 className="font-oswald text-2xl uppercase tracking-wider mb-6">Send us a Message</h3>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block font-inter text-sm uppercase tracking-widest text-gray-400 mb-2">Name *</label>
                 <input

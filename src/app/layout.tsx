@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   },
 };
 
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +34,11 @@ export default function RootLayout({
       className={`${oswald.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[var(--color-brand-dark)] text-white">
-        {children}
+        <Navbar />
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
