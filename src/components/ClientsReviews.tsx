@@ -145,7 +145,7 @@ export default function ClientsReviews() {
       className="py-24 bg-[#050505] relative overflow-hidden"
     >
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] spotlight-glow opacity-20 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] md:w-[600px] h-[150vw] md:h-[600px] spotlight-glow opacity-20 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}

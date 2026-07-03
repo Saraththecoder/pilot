@@ -124,7 +124,7 @@ export default function WhyChooseUs() {
           {reasons.map((reason, idx) => (
             <div
               key={idx}
-              className="flip-card h-[240px] gpu-accelerated"
+              className="flip-card h-[280px] sm:h-[260px] lg:h-[240px] gpu-accelerated"
             >
               <div className="flip-card-inner">
                 {/* Front */}

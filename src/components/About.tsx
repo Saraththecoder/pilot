@@ -185,7 +185,7 @@ export default function About() {
             <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 perspective-1000">
               {/* Vision Card */}
               <div
-                className="flip-card h-[280px] md:h-[300px] gpu-accelerated"
+                className="flip-card h-[320px] sm:h-[300px] gpu-accelerated"
                 onClick={() => setActiveModal(visionContent)}
               >
                 <div className="flip-card-inner">
@@ -213,7 +213,7 @@ export default function About() {
 
               {/* Mission Card */}
               <div
-                className="flip-card h-[280px] md:h-[300px] gpu-accelerated"
+                className="flip-card h-[320px] sm:h-[300px] gpu-accelerated"
                 onClick={() => setActiveModal(missionContent)}
               >
                 <div className="flip-card-inner">

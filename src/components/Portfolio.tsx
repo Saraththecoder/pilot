@@ -111,11 +111,11 @@ export default function Portfolio() {
 
   // Placeholder gallery data
   const galleryItems = [
-    { id: 1, type: "image", span: "col-span-1 md:col-span-2 row-span-2" },
+    { id: 1, type: "image", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1 sm:row-span-2" },
     { id: 2, type: "image", span: "col-span-1 row-span-1" },
     { id: 3, type: "image", span: "col-span-1 row-span-1" },
-    { id: 4, type: "image", span: "col-span-1 row-span-2" },
-    { id: 5, type: "image", span: "col-span-1 md:col-span-2 row-span-1" },
+    { id: 4, type: "image", span: "col-span-1 sm:row-span-2" },
+    { id: 5, type: "image", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1" },
   ];
 
   return (
@@ -142,7 +142,7 @@ export default function Portfolio() {
         </div>
 
         {/* Gallery Grid */}
-        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]" style={{ perspective: "1000px" }}>
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[250px] sm:auto-rows-[200px]" style={{ perspective: "1000px" }}>
           {galleryItems.map((item) => (
             <div
               key={item.id}

@@ -83,7 +83,7 @@ export default function Hero() {
               </div>
               
               {/* Wordmark */}
-              <h1 className="font-oswald text-6xl md:text-8xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg">
+              <h1 className="font-oswald text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg">
                 <span className="text-gradient-silver">Sky</span>
                 <span className="text-[var(--color-brand-orange)]">Pilot</span>
               </h1>
