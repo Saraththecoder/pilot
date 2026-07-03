@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import StatsCounter from "@/components/StatsCounter";
 import Services from "@/components/Services";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Portfolio from "@/components/Portfolio";
@@ -10,6 +11,7 @@ export default function Home() {
     <>
       <Hero />
       <About />
+      <StatsCounter />
       <Services />
       <WhyChooseUs />
       <Portfolio />

@@ -35,16 +35,18 @@ export default function Portfolio() {
 
       if (gridRef.current) {
         const items = gsap.utils.toArray('.portfolio-item');
-        // Entrance animation
+        // Dramatic 3D entrance animation
         gsap.fromTo(
           items,
-          { opacity: 0, scale: 0.9, y: 50 },
+          { opacity: 0, scale: 0.7, y: 80, rotateX: 30, rotateY: () => gsap.utils.random(-20, 20) },
           {
             opacity: 1,
             scale: 1,
             y: 0,
-            duration: 0.8,
-            stagger: 0.1,
+            rotateX: 0,
+            rotateY: 0,
+            duration: 1,
+            stagger: 0.12,
             ease: "back.out(1.5)",
             scrollTrigger: {
               trigger: gridRef.current,
@@ -65,6 +67,41 @@ export default function Portfolio() {
               scrub: true,
             }
           });
+        });
+
+        // Add 3D tilt interaction on hover for each portfolio item
+        items.forEach((item: any) => {
+          const handleMouseMove = (e: MouseEvent) => {
+            const rect = item.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            
+            gsap.to(item, {
+              rotateX,
+              rotateY,
+              scale: 1.03,
+              duration: 0.3,
+              ease: "power2.out",
+              transformPerspective: 800,
+            });
+          };
+
+          const handleMouseLeave = () => {
+            gsap.to(item, {
+              rotateX: 0,
+              rotateY: 0,
+              scale: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            });
+          };
+
+          item.addEventListener('mousemove', handleMouseMove);
+          item.addEventListener('mouseleave', handleMouseLeave);
         });
       }
     }, sectionRef);
@@ -105,12 +142,13 @@ export default function Portfolio() {
         </div>
 
         {/* Gallery Grid */}
-        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
-          {galleryItems.map((item, idx) => (
+        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]" style={{ perspective: "1000px" }}>
+          {galleryItems.map((item) => (
             <div
               key={item.id}
               onClick={() => setSelectedMedia(item.id)}
-              className={`portfolio-item ${item.span} bg-[var(--color-brand-card)] border border-gray-800 rounded-xl overflow-hidden relative group cursor-pointer`}
+              className={`portfolio-item ${item.span} bg-[var(--color-brand-card)] border border-gray-800 rounded-xl overflow-hidden relative group cursor-pointer gpu-accelerated`}
+              style={{ transformStyle: "preserve-3d" }}
             >
               <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-600 group-hover:text-[var(--color-brand-orange)] transition-colors z-10">
                 <ImageIcon className="w-8 h-8 mb-2" />

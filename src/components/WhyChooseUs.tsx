@@ -31,18 +31,20 @@ export default function WhyChooseUs() {
         );
       }
 
-      // Grid Items Animation
+      // Grid Items — dramatic flying card flip entrance
       if (gridRef.current) {
         gsap.fromTo(
           gridRef.current.children,
-          { opacity: 0, scale: 0.5, rotationX: 45 },
+          { opacity: 0, scale: 0.4, rotationX: 60, rotationY: () => gsap.utils.random(-30, 30), y: 80 },
           {
             opacity: 1,
             scale: 1,
             rotationX: 0,
-            duration: 1,
-            stagger: 0.15,
-            ease: "back.out(1.5)",
+            rotationY: 0,
+            y: 0,
+            duration: 1.2,
+            stagger: 0.12,
+            ease: "back.out(1.7)",
             scrollTrigger: {
               trigger: gridRef.current,
               start: "top 80%",
@@ -118,21 +120,35 @@ export default function WhyChooseUs() {
           </p>
         </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: "1000px" }}>
           {reasons.map((reason, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center text-center p-6 transform-gpu"
+              className="flip-card h-[240px] gpu-accelerated"
             >
-              <div className="icon-wrapper text-[var(--color-brand-orange)] mb-6 p-4 bg-[var(--color-brand-card)] rounded-full border border-gray-800 shadow-[0_0_15px_rgba(245,133,31,0.1)]">
-                {reason.icon}
+              <div className="flip-card-inner">
+                {/* Front */}
+                <div className="flip-card-front bg-[var(--color-brand-card)] border border-gray-800 flex flex-col items-center justify-center text-center p-6">
+                  <div className="icon-wrapper text-[var(--color-brand-orange)] mb-6 p-4 bg-black/50 rounded-full border border-gray-800 shadow-[0_0_15px_rgba(245,133,31,0.1)]">
+                    {reason.icon}
+                  </div>
+                  <h3 className="font-oswald text-xl uppercase tracking-wider text-white">
+                    {reason.title}
+                  </h3>
+                </div>
+                {/* Back */}
+                <div className="flip-card-back bg-gradient-to-br from-[var(--color-brand-card)] to-[#1a1a1a] border border-[var(--color-brand-orange)]/30 flex flex-col items-center justify-center text-center p-6">
+                  <div className="text-[var(--color-brand-orange)] mb-4">
+                    {reason.icon}
+                  </div>
+                  <h3 className="font-oswald text-lg uppercase tracking-wider mb-3 text-white">
+                    {reason.title}
+                  </h3>
+                  <p className="font-inter text-sm text-gray-400 leading-relaxed">
+                    {reason.description}
+                  </p>
+                </div>
               </div>
-              <h3 className="font-oswald text-xl uppercase tracking-wider mb-3 text-white">
-                {reason.title}
-              </h3>
-              <p className="font-inter text-sm text-gray-400 leading-relaxed">
-                {reason.description}
-              </p>
             </div>
           ))}
         </div>

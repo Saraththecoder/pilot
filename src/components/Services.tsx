@@ -17,43 +17,46 @@ export default function Services() {
       if (containerRef.current) {
         const rows = gsap.utils.toArray<HTMLElement>('.service-row');
         
-        // Desktop animations (side-to-side)
+        // Desktop animations (dramatic flying entrance)
         mm.add("(min-width: 768px)", () => {
           rows.forEach((row) => {
             const textBlock = row.querySelector('.service-text');
             const imageBlock = row.querySelector('.service-image');
             const isReversed = row.classList.contains('md:flex-row-reverse');
             
+            // Text flies in from the side with rotation
             gsap.fromTo(textBlock,
-              { opacity: 0, x: isReversed ? 50 : -50 },
-              { opacity: 1, x: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 80%" }}
+              { opacity: 0, x: isReversed ? 100 : -100, rotateY: isReversed ? -15 : 15, scale: 0.9 },
+              { opacity: 1, x: 0, rotateY: 0, scale: 1, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 80%" }}
             );
 
+            // Image flies in from the opposite side with rotation and scale
             gsap.fromTo(imageBlock,
-              { opacity: 0, x: isReversed ? -50 : 50, scale: 0.95 },
-              { opacity: 1, x: 0, scale: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 80%" }}
+              { opacity: 0, x: isReversed ? -120 : 120, rotateY: isReversed ? 20 : -20, scale: 0.8, rotateZ: isReversed ? -3 : 3 },
+              { opacity: 1, x: 0, rotateY: 0, scale: 1, rotateZ: 0, duration: 1.4, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 80%" }}
             );
             
+            // Parallax on scroll
             gsap.to(imageBlock, {
               yPercent: -10, ease: "none", scrollTrigger: { trigger: row, start: "top bottom", end: "bottom top", scrub: true }
             });
           });
         });
 
-        // Mobile animations (bottom-up)
+        // Mobile animations (flying up with rotation)
         mm.add("(max-width: 767px)", () => {
           rows.forEach((row) => {
             const textBlock = row.querySelector('.service-text');
             const imageBlock = row.querySelector('.service-image');
             
             gsap.fromTo(imageBlock,
-              { opacity: 0, y: 50 },
-              { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 85%" }}
+              { opacity: 0, y: 80, scale: 0.85, rotateX: 15 },
+              { opacity: 1, y: 0, scale: 1, rotateX: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 85%" }}
             );
 
             gsap.fromTo(textBlock,
-              { opacity: 0, y: 30 },
-              { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: textBlock, start: "top 90%" }}
+              { opacity: 0, y: 50, rotateX: 10 },
+              { opacity: 1, y: 0, rotateX: 0, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: textBlock, start: "top 90%" }}
             );
           });
         });
@@ -114,10 +117,11 @@ export default function Services() {
             <div 
               key={idx} 
               className={`service-row flex flex-col-reverse md:flex-row items-center gap-12 lg:gap-24 ${isReversed ? 'md:flex-row-reverse' : ''}`}
+              style={{ perspective: "1200px" }}
             >
               
               {/* Text Block */}
-              <div className="service-text flex-1 space-y-6">
+              <div className="service-text flex-1 space-y-6 gpu-accelerated">
                 <div className="border-l-4 border-[var(--color-brand-orange)] pl-6 py-2">
                   <h2 className="font-oswald text-4xl lg:text-5xl uppercase tracking-wider font-bold text-white leading-tight">
                     {service.title}
@@ -138,11 +142,11 @@ export default function Services() {
               </div>
 
               {/* Image Block (Placeholder) */}
-              <div className="service-image flex-1 w-full relative h-[400px] lg:h-[500px]">
+              <div className="service-image flex-1 w-full relative h-[400px] lg:h-[500px] gpu-accelerated">
                 {/* Decorative border matching the reference */}
                 <div className="absolute inset-0 border border-gray-800 rounded-lg -z-10 translate-x-4 translate-y-4"></div>
                 
-                <div className="absolute inset-0 bg-[#111111] border border-gray-800 rounded-lg flex flex-col items-center justify-center text-gray-700 shadow-2xl overflow-hidden group">
+                <div className="absolute inset-0 bg-[#111111] border border-gray-800 rounded-lg flex flex-col items-center justify-center text-gray-700 shadow-2xl overflow-hidden group tilt-card">
                   <ImageIcon className="w-16 h-16 mb-4 opacity-50 group-hover:scale-110 transition-transform duration-700" />
                   <span className="font-inter text-sm uppercase tracking-widest opacity-50">
                     {service.title} Image Placeholder

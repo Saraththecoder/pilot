@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollFrameSequence from "./ScrollFrameSequence";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Phone } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -91,15 +93,33 @@ export default function Hero() {
                 Aerial Cinematography
               </p>
               
-              {/* CTA */}
+              {/* Primary CTA */}
               <a
                 href="https://wa.me/919391705935"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)]"
+                className="bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-5"
               >
                 Get a Free Quote
               </a>
+
+              {/* Secondary CTAs Row */}
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                <Link
+                  href="/services"
+                  className="group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
+                >
+                  View Our Services
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="/contact"
+                  className="group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
+                >
+                  <Phone className="w-4 h-4" />
+                  Contact Us
+                </Link>
+              </div>
             </div>
           </div>
         </ScrollFrameSequence>
