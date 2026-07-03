@@ -20,7 +20,7 @@ export default function FloatingButtons() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        className="floating-btn floating-btn-enter w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:shadow-[0_0_25px_rgba(37,211,102,0.5)] transition-all duration-300"
+        className="floating-btn-phone floating-btn-enter w-14 h-14 rounded-full bg-[var(--color-brand-orange)] text-white flex items-center justify-center shadow-lg hover:shadow-[0_0_25px_rgba(245,133,31,0.5)] transition-all duration-300"
       >
         <MessageCircle className="w-6 h-6 fill-white" />
       </a>
