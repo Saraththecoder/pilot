@@ -7,50 +7,6 @@ import { Star, Quote, Building2, Clapperboard, Landmark, Factory, Home, TreePine
 
 gsap.registerPlugin(ScrollTrigger);
 
-const reviews = [
-  {
-    name: "Rajesh Kumar",
-    role: "Real Estate Developer",
-    rating: 5,
-    text: "SkyPilot transformed our property listings with breathtaking aerial shots. Sales inquiries increased by 40% after using their drone footage. Truly exceptional work!",
-    icon: <Home className="w-5 h-5" />,
-  },
-  {
-    name: "Priya Sharma",
-    role: "Film Director",
-    rating: 5,
-    text: "The cinematic quality of SkyPilot's aerial videography is outstanding. They captured sweeping shots for our feature film that rival Hollywood-level production. Highly recommended!",
-    icon: <Clapperboard className="w-5 h-5" />,
-  },
-  {
-    name: "Venkatesh Reddy",
-    role: "Construction Manager",
-    rating: 5,
-    text: "We use SkyPilot for monthly construction progress monitoring. Their orthomosaic maps and 3D models have been invaluable for stakeholder reporting and dispute resolution.",
-    icon: <Building2 className="w-5 h-5" />,
-  },
-  {
-    name: "Anitha Devi",
-    role: "Event Planner",
-    rating: 5,
-    text: "SkyPilot covered our corporate event with stunning aerial footage. The team was professional, punctual, and the final video exceeded all our expectations!",
-    icon: <TreePine className="w-5 h-5" />,
-  },
-  {
-    name: "Srinivas Rao",
-    role: "Industrial Plant Manager",
-    rating: 5,
-    text: "Their thermal inspection drones identified critical issues in our facility that manual inspection missed. SkyPilot's technology literally saved us lakhs in preventive maintenance.",
-    icon: <Factory className="w-5 h-5" />,
-  },
-  {
-    name: "Meera Patel",
-    role: "Government Surveyor",
-    rating: 5,
-    text: "The survey-grade accuracy of SkyPilot's mapping services is remarkable. They delivered precise topographic data for our land development project ahead of schedule.",
-    icon: <Landmark className="w-5 h-5" />,
-  },
-];
 
 const clients = [
   "Real Estate Firms",
@@ -113,26 +69,7 @@ export default function ClientsReviews() {
         );
       }
 
-      // Review cards fly in
-      if (reviewsRef.current) {
-        gsap.fromTo(
-          ".review-card",
-          { opacity: 0, y: 80, rotateX: 20, scale: 0.9 },
-          {
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            scale: 1,
-            duration: 1,
-            stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: reviewsRef.current,
-              start: "top 80%",
-            },
-          }
-        );
-      }
+
     }, sectionRef);
 
     return () => ctx.revert();
@@ -151,12 +88,10 @@ export default function ClientsReviews() {
         {/* Header */}
         <div ref={headerRef} className="text-center mb-16">
           <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6">
-            Our <span className="text-gradient-silver">Clients</span> &{" "}
-            <span className="text-[var(--color-brand-orange)]">Reviews</span>
+            Companies We've <span className="text-[var(--color-brand-orange)]">Worked With</span>
           </h2>
           <p className="font-inter text-gray-400 max-w-2xl mx-auto">
-            Trusted by businesses across industries. Here&apos;s what our
-            clients have to say about working with SkyPilot.
+            Trusted by top brands and businesses across multiple industries.
           </p>
         </div>
 
@@ -177,51 +112,38 @@ export default function ClientsReviews() {
           </div>
         </div>
 
-        {/* Reviews Grid */}
-        <div
-          ref={reviewsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          style={{ perspective: "1000px" }}
-        >
-          {reviews.map((review, idx) => (
-            <div
-              key={idx}
-              className="review-card bg-[var(--color-brand-card)] rounded-2xl p-8 border border-gray-800 hover:border-[var(--color-brand-orange)]/30 hover:shadow-[0_0_30px_rgba(245,133,31,0.1)] transition-all duration-500 relative group gpu-accelerated"
-            >
-              {/* Quote Icon */}
-              <Quote className="w-8 h-8 text-[var(--color-brand-orange)]/20 absolute top-6 right-6 group-hover:text-[var(--color-brand-orange)]/40 transition-colors" />
+        {/* Infinite Marquee of Client Logos */}
+        <div className="relative w-full overflow-hidden flex bg-[#111111]/50 py-12 border-y border-gray-800/50 mt-12 rounded-2xl gpu-accelerated">
+          {/* Fading edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none rounded-l-2xl"></div>
+          <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none rounded-r-2xl"></div>
 
-              {/* Stars */}
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: review.rating }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4 fill-[var(--color-brand-orange)] text-[var(--color-brand-orange)]"
-                  />
+          <div className="flex animate-marquee whitespace-nowrap items-center hover-target">
+            {/* Duplicated block for seamless loop */}
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="flex gap-8 md:gap-16 px-4 md:px-8 items-center">
+                {/* Client Logos */}
+                {['/client1.svg', '/client2.svg', '/client3.svg', '/client4.svg', '/client5.svg'].map((src, idx) => (
+                  <div key={idx} className="w-32 h-16 md:w-48 md:h-24 bg-[#111111] rounded-lg flex items-center justify-center border border-gray-800 shrink-0 overflow-hidden">
+                    <img src={src} alt={`Client ${idx + 1}`} className="w-full h-full object-contain p-4 filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                  </div>
                 ))}
               </div>
-
-              {/* Review Text */}
-              <p className="font-inter text-gray-400 leading-relaxed text-sm mb-6 group-hover:text-gray-300 transition-colors">
-                &ldquo;{review.text}&rdquo;
-              </p>
-
-              {/* Reviewer Info */}
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-800">
-                <div className="w-10 h-10 rounded-full bg-[var(--color-brand-orange)]/10 border border-[var(--color-brand-orange)]/20 flex items-center justify-center text-[var(--color-brand-orange)]">
-                  {review.icon}
-                </div>
-                <div>
-                  <p className="font-oswald text-sm uppercase tracking-wider text-white">
-                    {review.name}
-                  </p>
-                  <p className="font-inter text-xs text-gray-500">
-                    {review.role}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          
+          <style jsx>{`
+            @keyframes marquee {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .animate-marquee {
+              animation: marquee 30s linear infinite;
+            }
+            .animate-marquee:hover {
+              animation-play-state: paused;
+            }
+          `}</style>
         </div>
       </div>
     </section>
