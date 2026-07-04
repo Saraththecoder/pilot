@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ShieldCheck, Target, Zap, Award, Smile, CheckCircle, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import SplitType from "split-type";
 
 interface ModalContent {
   title: string;
@@ -24,31 +25,17 @@ export default function About() {
     const ctx = gsap.context(() => {
       // 1. Header Text Split Animation
       if (headerRef.current) {
-        // Simple manual split for words since SplitText is a premium plugin
-        const words = headerRef.current.innerText.split(" ");
-        headerRef.current.innerHTML = "";
-        words.forEach((word) => {
-          const span = document.createElement("span");
-          span.innerText = word + " ";
-          span.style.display = "inline-block";
-          
-          // Re-apply the gradient class to the word "About"
-          if (word.toUpperCase() === "ABOUT") {
-            span.className = "text-gradient-silver";
-          }
-          
-          headerRef.current?.appendChild(span);
-        });
+        const text = new SplitType(headerRef.current, { types: 'chars,words' });
 
         gsap.fromTo(
-          headerRef.current.children,
+          text.chars,
           { opacity: 0, y: 50, rotateX: -90 },
           {
             opacity: 1,
             y: 0,
             rotateX: 0,
             duration: 1,
-            stagger: 0.2,
+            stagger: 0.05,
             ease: "back.out(1.7)",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -168,8 +155,9 @@ export default function About() {
           <div className="space-y-24 perspective-1000">
             {/* Header & Stat */}
             <div className="text-center">
-              <h2 ref={headerRef} className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6">
-                About SkyPilot
+              <h2 ref={headerRef} className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 120%, 0% 120%)' }}>
+                <span className="text-gradient-silver mr-3">About</span>
+                SkyPilot
               </h2>
               <div className="stat-badge inline-block bg-[var(--color-brand-card)] border border-gray-800 rounded-full px-8 py-3 mt-4">
                 <span className="font-oswald text-2xl md:text-3xl font-bold text-[var(--color-brand-orange)] mr-2">
@@ -185,7 +173,7 @@ export default function About() {
             <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 perspective-1000">
               {/* Vision Card */}
               <div
-                className="flip-card h-[320px] sm:h-[300px] gpu-accelerated"
+                className="hover-target flip-card h-[320px] sm:h-[300px] gpu-accelerated cursor-pointer"
                 onClick={() => setActiveModal(visionContent)}
               >
                 <div className="flip-card-inner">
@@ -213,7 +201,7 @@ export default function About() {
 
               {/* Mission Card */}
               <div
-                className="flip-card h-[320px] sm:h-[300px] gpu-accelerated"
+                className="hover-target flip-card h-[320px] sm:h-[300px] gpu-accelerated cursor-pointer"
                 onClick={() => setActiveModal(missionContent)}
               >
                 <div className="flip-card-inner">
@@ -249,7 +237,7 @@ export default function About() {
                 {coreValues.map((value, idx) => (
                   <div 
                     key={idx}
-                    className="chip-item flex items-center gap-2 bg-black border border-gray-800 rounded-full px-6 py-3 text-sm font-inter text-gray-300 hover:border-[var(--color-brand-orange)] hover:text-white hover:scale-105 transition-all cursor-default shadow-lg gpu-accelerated"
+                    className="hover-target chip-item flex items-center gap-2 bg-black border border-gray-800 rounded-full px-6 py-3 text-sm font-inter text-gray-300 hover:border-[var(--color-brand-orange)] hover:text-white hover:scale-105 transition-all cursor-default shadow-lg gpu-accelerated"
                   >
                     <span className="text-[var(--color-brand-orange)]">{value.icon}</span>
                     {value.name}
@@ -284,7 +272,7 @@ export default function About() {
               {/* Close Button */}
               <button
                 onClick={() => setActiveModal(null)}
-                className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors"
+                className="hover-target absolute top-4 right-4 text-gray-500 hover:text-white transition-colors cursor-pointer"
               >
                 <X className="w-6 h-6" />
               </button>

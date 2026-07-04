@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import ParallaxShowcase from "@/components/ParallaxShowcase";
 import About from "@/components/About";
 import StatsCounter from "@/components/StatsCounter";
 import Services from "@/components/Services";
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <ParallaxShowcase />
       <About />
       <StatsCounter />
       <Services />

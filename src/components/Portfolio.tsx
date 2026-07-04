@@ -109,13 +109,13 @@ export default function Portfolio() {
     return () => ctx.revert();
   }, []);
 
-  // Placeholder gallery data
+  // Gallery data
   const galleryItems = [
-    { id: 1, type: "image", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1 sm:row-span-2" },
-    { id: 2, type: "image", span: "col-span-1 row-span-1" },
-    { id: 3, type: "image", span: "col-span-1 row-span-1" },
-    { id: 4, type: "image", span: "col-span-1 sm:row-span-2" },
-    { id: 5, type: "image", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1" },
+    { id: 1, type: "image", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1 sm:row-span-2", image: "/images/portfolio_1_1783188665088.png" },
+    { id: 2, type: "image", span: "col-span-1 row-span-1", image: "/images/portfolio_2_1783188683301.png" },
+    { id: 3, type: "image", span: "col-span-1 row-span-1", image: "/images/portfolio_3_1783188694749.png" },
+    { id: 4, type: "image", span: "col-span-1 sm:row-span-2", image: "/images/portfolio_4_1783188705138.png" },
+    { id: 5, type: "image", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1", image: "/images/portfolio_5_1783188724885.png" },
   ];
 
   return (
@@ -150,9 +150,8 @@ export default function Portfolio() {
               className={`portfolio-item ${item.span} bg-[var(--color-brand-card)] border border-gray-800 rounded-xl overflow-hidden relative group cursor-pointer gpu-accelerated`}
               style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-600 group-hover:text-[var(--color-brand-orange)] transition-colors z-10">
-                <ImageIcon className="w-8 h-8 mb-2" />
-                <span className="font-inter text-sm uppercase tracking-widest">Placeholder</span>
+              <div className="absolute inset-0 z-10">
+                <img src={item.image} alt={`Portfolio ${item.id}`} className="w-full h-full object-cover" />
               </div>
               
               {/* Overlay on hover */}
@@ -182,12 +181,12 @@ export default function Portfolio() {
             >
               <X className="w-8 h-8" />
             </button>
-            <div className="relative w-full max-w-5xl aspect-video bg-[var(--color-brand-card)] border border-gray-800 rounded-xl flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <ImageIcon className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                <p className="font-inter text-xl uppercase tracking-widest">Image Placeholder {selectedMedia}</p>
-                <p className="text-sm mt-2 font-inter text-gray-600">(Replace with actual project image)</p>
-              </div>
+            <div className="relative w-full max-w-5xl aspect-video bg-[var(--color-brand-card)] border border-gray-800 rounded-xl flex items-center justify-center overflow-hidden">
+              <img 
+                src={galleryItems.find(item => item.id === selectedMedia)?.image} 
+                alt={`Portfolio ${selectedMedia}`} 
+                className="w-full h-full object-contain"
+              />
             </div>
           </motion.div>
         )}

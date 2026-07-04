@@ -34,13 +34,19 @@ body::before {
 
 @layer utilities {
   .text-gradient-silver {
-    background-image: linear-gradient(to right, #B8B8B8, #FFFFFF, #B8B8B8);
-    -webkit-background-clip: text;
-    color: transparent;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-gray-300 via-gray-100 to-gray-400;
   }
   
   .spotlight-glow {
-    background: radial-gradient(circle at top center, rgba(245, 133, 31, 0.15) 0%, transparent 60%);
+    background: radial-gradient(circle at 50% 50%, rgba(245, 133, 31, 0.15) 0%, transparent 60%);
+  }
+
+  .cursor-active {
+    width: 60px !important;
+    height: 60px !important;
+    background-color: white !important;
+    border-color: transparent !important;
+    mix-blend-mode: difference !important;
   }
 }
 

@@ -35,19 +35,25 @@ export default function WhyChooseUs() {
       if (gridRef.current) {
         gsap.fromTo(
           gridRef.current.children,
-          { opacity: 0, scale: 0.4, rotationX: 60, rotationY: () => gsap.utils.random(-30, 30), y: 80 },
+          { 
+            opacity: 0, 
+            z: -2000, 
+            rotationX: () => gsap.utils.random(-45, 45), 
+            rotationY: () => gsap.utils.random(-45, 45), 
+            y: 100 
+          },
           {
             opacity: 1,
-            scale: 1,
+            z: 0,
             rotationX: 0,
             rotationY: 0,
             y: 0,
-            duration: 1.2,
-            stagger: 0.12,
-            ease: "back.out(1.7)",
+            duration: 1.5,
+            stagger: 0.15,
+            ease: "power3.out",
             scrollTrigger: {
               trigger: gridRef.current,
-              start: "top 80%",
+              start: "top 85%",
             },
           }
         );
@@ -120,7 +126,7 @@ export default function WhyChooseUs() {
           </p>
         </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: "1000px" }}>
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: "2000px" }}>
           {reasons.map((reason, idx) => (
             <div
               key={idx}

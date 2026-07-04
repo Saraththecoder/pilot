@@ -7,6 +7,7 @@ import ScrollFrameSequence from "./ScrollFrameSequence";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,12 +35,33 @@ export default function Hero() {
           start: "top top",
           end: "bottom bottom",
           scrub: true,
+          onEnter: () => {
+             // Split text when it enters
+             const heading = new SplitType('.hero-heading', { types: 'chars,words' });
+             const tagline = new SplitType('.hero-tagline', { types: 'words' });
+             
+             // Initial state
+             gsap.set(heading.chars, { y: 100, opacity: 0 });
+             gsap.set(tagline.words, { y: 50, opacity: 0 });
+             gsap.set('.hero-cta', { y: 30, opacity: 0 });
+          },
+          onUpdate: (self) => {
+             // If scrub reaches 80%, trigger the split text animation
+             if (self.progress > 0.8 && !tl.data?.animated) {
+                 tl.data = { animated: true };
+                 
+                 const heroTl = gsap.timeline();
+                 heroTl.to('.hero-overlay-content', { opacity: 1, duration: 0.1 })
+                       .to('.hero-heading .char', { y: 0, opacity: 1, stagger: 0.05, duration: 0.8, ease: 'back.out(1.7)' })
+                       .to('.hero-tagline .word', { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+                       .to('.hero-cta', { y: 0, opacity: 1, stagger: 0.2, duration: 0.8, ease: 'power3.out' }, '-=0.2');
+             }
+          }
         }
       });
-
-      // Keep it hidden for the first 80% of the scroll, then fade in
-      tl.to(overlayRef.current, { opacity: 0, duration: 0.8 })
-        .to(overlayRef.current, { opacity: 1, duration: 0.2 });
+      
+      // Keep it hidden initially
+      gsap.set(overlayRef.current, { opacity: 0 });
     });
 
     return () => {
@@ -83,13 +105,13 @@ export default function Hero() {
               </div>
               
               {/* Wordmark */}
-              <h1 className="font-oswald text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg">
-                <span className="text-gradient-silver">Sky</span>
+              <h1 className="hero-heading font-oswald text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
+                <span className="text-gradient-silver mr-4">Sky</span>
                 <span className="text-[var(--color-brand-orange)]">Pilot</span>
               </h1>
               
               {/* Tagline */}
-              <p className="font-inter text-sm md:text-xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-gray-300 mb-8 max-w-2xl px-4">
+              <p className="hero-tagline font-inter text-sm md:text-xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-gray-300 mb-8 max-w-2xl px-4" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
                 Aerial Cinematography
               </p>
               
@@ -98,23 +120,23 @@ export default function Hero() {
                 href="https://wa.me/919391705935"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-5"
+                className="hero-cta hover-target bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-5"
               >
                 Get a Free Quote
               </a>
 
               {/* Secondary CTAs Row */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+              <div className="hero-cta flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
                 <Link
                   href="/services"
-                  className="group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
+                  className="hover-target group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
                 >
                   View Our Services
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
+                  className="hover-target group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
                 >
                   <Phone className="w-4 h-4" />
                   Contact Us
