@@ -211,8 +211,8 @@ export default function Portfolio() {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube.com/embed/R_InO9bxuwU?si=FVAXh-IhX13IMpX1&autoplay=1" 
-                title="SkyPilot Showreel" 
+                src="https://www.youtube.com/embed/R_InO9bxuwU?si=5qJBjEDGNUX0Ylu-&autoplay=1" 
+                title="YouTube video player" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 referrerPolicy="strict-origin-when-cross-origin" 
