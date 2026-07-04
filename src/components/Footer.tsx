@@ -48,7 +48,7 @@ export default function Footer() {
                 <Link href="#services" className="hover:text-[var(--color-brand-orange)] transition-colors">Services</Link>
               </li>
               <li>
-                <Link href="#portfolio" className="hover:text-[var(--color-brand-orange)] transition-colors">Portfolio</Link>
+                <Link href="#portfolio" className="hover:text-[var(--color-brand-orange)] transition-colors">Gallery</Link>
               </li>
               <li>
                 <Link href="#contact" className="hover:text-[var(--color-brand-orange)] transition-colors">Contact</Link>

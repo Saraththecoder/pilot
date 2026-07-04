@@ -153,13 +153,15 @@ export default function About() {
         <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="space-y-24 perspective-1000">
-            {/* Header & Stat */}
-            <div className="text-center">
+            <div className="text-center max-w-4xl mx-auto">
               <h2 ref={headerRef} className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 120%, 0% 120%)' }}>
                 <span className="text-gradient-silver mr-3">About</span>
                 SkyPilot
               </h2>
-              <div className="stat-badge inline-block bg-[var(--color-brand-card)] border border-gray-800 rounded-full px-8 py-3 mt-4">
+              <p className="font-inter text-gray-400 text-lg leading-relaxed mb-8">
+                SkyPilot Drone Services is a premier aerial cinematography and surveying agency based in Kurnool, Andhra Pradesh. We specialize in capturing breathtaking perspectives that elevate visual storytelling and deliver critical data for industrial projects. By merging aerospace-grade technology with creative vision, we empower filmmakers, real estate developers, and civil engineers to see the world from a higher vantage point.
+              </p>
+              <div className="stat-badge inline-block bg-[var(--color-brand-card)] border border-gray-800 rounded-full px-8 py-3 mt-2">
                 <span className="font-oswald text-2xl md:text-3xl font-bold text-[var(--color-brand-orange)] mr-2">
                   5+
                 </span>

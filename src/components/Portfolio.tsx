@@ -125,7 +125,7 @@ export default function Portfolio() {
         <div ref={headerRef} className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div>
             <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-4">
-              Our <span className="text-[var(--color-brand-orange)]">Portfolio</span>
+              Our <span className="text-[var(--color-brand-orange)]">Gallery</span>
             </h2>
             <p className="font-inter text-gray-400 max-w-lg">
               A glimpse into our recent aerial projects across real estate, industrial inspections, and cinematic captures.
@@ -208,12 +208,16 @@ export default function Portfolio() {
               <X className="w-8 h-8" />
             </button>
             <div className="relative w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl">
-              {/* Replace src with actual YouTube embed URL when ready */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500 bg-[var(--color-brand-card)] border border-gray-800">
-                <Play className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                <p className="font-inter text-xl uppercase tracking-widest">Showreel Placeholder</p>
-                <p className="text-sm mt-2 font-inter text-gray-600">(Embed YouTube iframe here)</p>
-              </div>
+              <iframe 
+                width="100%" 
+                height="100%" 
+                src="https://www.youtube.com/embed/R_InO9bxuwU?si=FVAXh-IhX13IMpX1&autoplay=1" 
+                title="SkyPilot Showreel" 
+                frameBorder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerPolicy="strict-origin-when-cross-origin" 
+                allowFullScreen
+              ></iframe>
             </div>
           </motion.div>
         )}
