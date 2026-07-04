@@ -124,8 +124,8 @@ export default function ClientsReviews() {
               <div key={i} className="flex gap-8 md:gap-16 px-4 md:px-8 items-center">
                 {/* Client Logos */}
                 {['/client1.png', '/client2.png', '/client3.png', '/client4.png', '/client5.png'].map((src, idx) => (
-                  <div key={idx} className="w-32 h-16 md:w-48 md:h-24 bg-[#111111] rounded-lg flex items-center justify-center border border-gray-800 shrink-0 overflow-hidden">
-                    <img src={src} alt={`Client ${idx + 1}`} className="w-full h-full object-contain p-4 filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                  <div key={idx} className="w-32 h-16 md:w-48 md:h-24 flex items-center justify-center shrink-0 overflow-hidden">
+                    <img src={src} alt={`Client ${idx + 1}`} className="w-full h-full object-contain p-4" />
                   </div>
                 ))}
               </div>
