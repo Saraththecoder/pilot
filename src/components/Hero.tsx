@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ScrollFrameSequence from "./ScrollFrameSequence";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Phone } from "lucide-react";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone, X } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const [isPopupClosed, setIsPopupClosed] = useState(false);
   
   // Format frame index to zero-padded string, e.g., '001'
   const getFramePath = useCallback((index: number) => {
@@ -80,14 +80,25 @@ export default function Hero() {
           scrollHeight="400vh"
         >
           {/* Overlay Content */}
-          <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center p-4">
-            <div 
-              ref={overlayRef}
-              className="hero-overlay-content opacity-0 pointer-events-auto"
-            >
-              {/* Pop-up Card */}
-              <div className="hero-anim bg-black/60 backdrop-blur-xl border border-white/10 p-8 md:p-16 rounded-3xl shadow-[0_0_50px_rgba(245,133,31,0.2)] flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full relative overflow-hidden">
-                {/* Spotlight Glow inside card */}
+          {!isPopupClosed && (
+            <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center p-4">
+              <div 
+                ref={overlayRef}
+                className="hero-overlay-content opacity-0 pointer-events-auto w-full max-w-4xl"
+              >
+                {/* Pop-up Card */}
+                <div className="hero-anim bg-black border border-white/20 p-8 md:p-16 rounded-3xl shadow-[0_0_50px_rgba(245,133,31,0.2)] flex flex-col items-center justify-center text-center w-full relative overflow-hidden">
+                  
+                  {/* Close Button */}
+                  <button 
+                    onClick={() => setIsPopupClosed(true)}
+                    className="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all duration-300 z-50 cursor-pointer"
+                    aria-label="Close pop-up"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+
+                  {/* Spotlight Glow inside card */}
                 <div className="absolute inset-0 spotlight-glow opacity-50 z-[-1]" />
                 
                 {/* Logo Mark */}
@@ -144,6 +155,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
+          )}
         </ScrollFrameSequence>
       </div>
     </section>
