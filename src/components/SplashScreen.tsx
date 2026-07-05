@@ -110,13 +110,13 @@ export default function SplashScreen() {
                     transition={{ duration: 0.4, delay: 1.0 }}
                     style={{ originX: '75px', originY: '75px' }}
                   >
+                    <circle cx="75" cy="75" r="28" fill="rgba(0,0,0,0.03)" />
                     <motion.g
                       animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
+                      transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
                       style={{ originX: '75px', originY: '75px' }}
                     >
-                      <path d="M 45 75 Q 75 65 105 75 Q 75 85 45 75 Z" fill="#222" />
-                      <path d="M 75 45 Q 85 75 75 105 Q 65 75 75 45 Z" fill="#222" />
+                      <path d="M 47 75 Q 75 69 103 75 Q 75 81 47 75 Z" fill="#222" />
                     </motion.g>
                   </motion.g>
 
@@ -126,13 +126,13 @@ export default function SplashScreen() {
                     transition={{ duration: 0.4, delay: 1.0 }}
                     style={{ originX: '225px', originY: '75px' }}
                   >
+                    <circle cx="225" cy="75" r="28" fill="rgba(0,0,0,0.03)" />
                     <motion.g
                       animate={{ rotate: -360 }}
-                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
+                      transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
                       style={{ originX: '225px', originY: '75px' }}
                     >
-                      <path d="M 195 75 Q 225 65 255 75 Q 225 85 195 75 Z" fill="#222" />
-                      <path d="M 225 45 Q 235 75 225 105 Q 215 75 225 45 Z" fill="#222" />
+                      <path d="M 197 75 Q 225 69 253 75 Q 225 81 197 75 Z" fill="#222" />
                     </motion.g>
                   </motion.g>
 
@@ -142,13 +142,13 @@ export default function SplashScreen() {
                     transition={{ duration: 0.4, delay: 1.0 }}
                     style={{ originX: '75px', originY: '225px' }}
                   >
+                    <circle cx="75" cy="225" r="28" fill="rgba(0,0,0,0.03)" />
                     <motion.g
                       animate={{ rotate: -360 }}
-                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
+                      transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
                       style={{ originX: '75px', originY: '225px' }}
                     >
-                      <path d="M 45 225 Q 75 215 105 225 Q 75 235 45 225 Z" fill="#222" />
-                      <path d="M 75 195 Q 85 225 75 255 Q 65 225 75 195 Z" fill="#222" />
+                      <path d="M 47 225 Q 75 219 103 225 Q 75 231 47 225 Z" fill="#222" />
                     </motion.g>
                   </motion.g>
 
@@ -158,13 +158,13 @@ export default function SplashScreen() {
                     transition={{ duration: 0.4, delay: 1.0 }}
                     style={{ originX: '225px', originY: '225px' }}
                   >
+                    <circle cx="225" cy="225" r="28" fill="rgba(0,0,0,0.03)" />
                     <motion.g
                       animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
+                      transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
                       style={{ originX: '225px', originY: '225px' }}
                     >
-                      <path d="M 195 225 Q 225 215 255 225 Q 225 235 195 225 Z" fill="#222" />
-                      <path d="M 225 195 Q 235 225 225 255 Q 215 225 225 195 Z" fill="#222" />
+                      <path d="M 197 225 Q 225 219 253 225 Q 225 231 197 225 Z" fill="#222" />
                     </motion.g>
                   </motion.g>
                 </svg>
