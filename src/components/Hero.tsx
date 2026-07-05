@@ -16,7 +16,7 @@ export default function Hero() {
   
   // Format frame index to zero-padded string, e.g., '001'
   const getFramePath = useCallback((index: number) => {
-    // ezgif-frame-001.jpg ... ezgif-frame-040.jpg
+    // ezgif-frame-001.jpg ... ezgif-frame-280.jpg
     const paddedIndex = index.toString().padStart(3, "0");
     return `/frames/ezgif-frame-${paddedIndex}.jpg`;
   }, []);
@@ -28,6 +28,14 @@ export default function Hero() {
     // The ScrollFrameSequence component pins its container for '300vh'.
     
     const ctxGSAP = gsap.context(() => {
+      // Hide the text initially so it doesn't show during splash screen
+      gsap.set(".intro-sub", { opacity: 0, y: 20 });
+      gsap.set(".intro-head", { opacity: 0, y: 30 });
+      
+      // Animate the intro text after the splash screen finishes (approx 3.8s)
+      gsap.to(".intro-sub", { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 3.8 });
+      gsap.to(".intro-head", { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 4.0 });
+
       // Animate overlay content to fade in at the last 20% of the scrub.
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -70,16 +78,29 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative w-full bg-[var(--color-brand-dark)]">
+    <section id="home" className="relative w-full bg-black flex flex-col">
+      {/* Plain Black Intro Section */}
+      <div className="intro-text-section w-full min-h-screen flex flex-col items-center justify-center bg-black text-center px-4 relative z-10">
+        <p className="intro-sub font-inter text-[var(--color-brand-orange)] tracking-[0.3em] md:tracking-[0.4em] text-xs md:text-sm uppercase mb-6 font-semibold">
+          Introducing SkyPilot
+        </p>
+        <h1 className="intro-head font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white max-w-5xl mx-auto leading-tight md:leading-[1.1] tracking-tight mb-2">
+          Elevating Perspectives with Drone Shoot Services
+        </h1>
+        <h2 className="intro-head font-oswald text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-brand-orange)] tracking-tight">
+          Realestate Centric
+        </h2>
+      </div>
+
       {/* 
         This div wraps the frame sequence. We give it an ID so the ScrollTrigger 
         in this component can sync with the scroll distance of the pinned canvas.
       */}
       <div id="hero-container">
         <ScrollFrameSequence 
-          frameCount={40} 
+          frameCount={280} 
           frameBasePath={getFramePath}
-          scrollHeight="300vh"
+          scrollHeight="600vh"
         >
           {/* Overlay Content */}
           <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center">

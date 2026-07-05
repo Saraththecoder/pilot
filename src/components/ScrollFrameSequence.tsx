@@ -128,9 +128,7 @@ export default function ScrollFrameSequence({
             Math.max(0, Math.floor(self.progress * frameCount))
           );
           
-          // Debug element update
-          const debugEl = document.getElementById("debug-frame-index");
-          if (debugEl) debugEl.innerText = `Frame: ${frameIndex}`;
+
 
           if (playhead.frame !== frameIndex) {
             playhead.frame = frameIndex;
@@ -159,11 +157,7 @@ export default function ScrollFrameSequence({
         )}
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
         
-        {/* Debug UI */}
-        <div className="absolute top-4 left-4 bg-black/80 text-white p-2 text-xs z-50 rounded">
-          <p>Loaded: {imagesLoaded ? "Yes" : "No"} ({loadProgress}%)</p>
-          <p id="debug-frame-index">Frame: 0</p>
-        </div>
+
 
         {/* We expose a generic overlay slot for the parent to pass content */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
