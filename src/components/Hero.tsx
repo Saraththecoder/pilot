@@ -147,7 +147,7 @@ export default function Hero() {
                   href="/services"
                   className="hover-target group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
                 >
-                  View Our Services
+                  Explore Services
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
