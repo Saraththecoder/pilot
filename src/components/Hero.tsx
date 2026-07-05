@@ -84,65 +84,67 @@ export default function Hero() {
           scrollHeight="400vh"
         >
           {/* Overlay Content */}
-          <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center">
+          <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center p-4">
             <div 
               ref={overlayRef}
-              className="hero-overlay-content flex flex-col items-center justify-center text-center opacity-0 pointer-events-auto"
+              className="hero-overlay-content opacity-0 pointer-events-auto"
             >
-              {/* Spotlight Glow behind content */}
-              <div className="absolute inset-0 spotlight-glow opacity-50 z-[-1]" />
-              
-              {/* Logo Mark */}
-              <div className="hero-anim relative w-32 h-32 md:w-40 md:h-40 mb-6 drop-shadow-2xl">
-                <Image 
-                  src="/logo.png" 
-                  alt="SkyPilot Logo Mark" 
-                  fill 
-                  className="object-contain"
-                  onError={(e) => {
-                    // Fallback if logo not found
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
-              </div>
-              
-              {/* Wordmark */}
-              <h1 className="hero-anim hero-heading font-oswald text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
-                <span className="text-gradient-silver mr-4">Sky</span>
-                <span className="text-[var(--color-brand-orange)]">Pilot</span>
-              </h1>
-              
-              {/* Tagline */}
-              <p className="hero-anim hero-tagline font-inter text-sm md:text-xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-gray-300 mb-8 max-w-2xl px-4" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
-                Aerial Cinematography
-              </p>
-              
-              {/* Primary CTA */}
-              <a
-                href="https://wa.me/919391705935"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-anim hero-cta hover-target bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-5"
-              >
-                Get a Free Quote
-              </a>
+              {/* Pop-up Card */}
+              <div className="hero-anim bg-black/60 backdrop-blur-xl border border-white/10 p-8 md:p-16 rounded-3xl shadow-[0_0_50px_rgba(245,133,31,0.2)] flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full relative overflow-hidden">
+                {/* Spotlight Glow inside card */}
+                <div className="absolute inset-0 spotlight-glow opacity-50 z-[-1]" />
+                
+                {/* Logo Mark */}
+                <div className="relative w-24 h-24 md:w-32 md:h-32 mb-6 drop-shadow-2xl">
+                  <Image 
+                    src="/logo.png" 
+                    alt="SkyPilot Logo Mark" 
+                    fill 
+                    className="object-contain"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                </div>
+                
+                {/* Wordmark */}
+                <h1 className="font-oswald text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
+                  <span className="text-gradient-silver mr-3 md:mr-4">Sky</span>
+                  <span className="text-[var(--color-brand-orange)]">Pilot</span>
+                </h1>
+                
+                {/* Tagline */}
+                <p className="font-inter text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] text-gray-300 mb-8 max-w-2xl px-4" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
+                  Aerial Cinematography
+                </p>
+                
+                {/* Primary CTA */}
+                <a
+                  href="https://wa.me/919391705935"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover-target bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-lg md:text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-6"
+                >
+                  Get a Free Quote
+                </a>
 
-              {/* Secondary CTAs Row */}
-              <div className="hero-anim hero-cta flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-                <Link
-                  href="/services"
-                  className="hover-target group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
-                >
-                  Explore Services
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <Link
-                  href="/contact"
-                  className="hover-target group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
-                >
-                  <Phone className="w-4 h-4" />
-                  Contact Us
-                </Link>
+                {/* Secondary CTAs Row */}
+                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full justify-center">
+                  <Link
+                    href="/services"
+                    className="hover-target group flex items-center justify-center gap-2 border-2 border-white/20 text-white px-6 py-3 rounded-full font-oswald text-xs md:text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:bg-white/5 transition-all duration-300 w-full sm:w-auto"
+                  >
+                    Explore Services
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="hover-target group flex items-center justify-center gap-2 border-2 border-white/20 text-white px-6 py-3 rounded-full font-oswald text-xs md:text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:bg-white/5 transition-all duration-300 w-full sm:w-auto"
+                  >
+                    <Phone className="w-4 h-4" />
+                    Contact Us
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
