@@ -77,65 +77,61 @@ export default function SplashScreen() {
                   </g>
 
                   {/* Propeller Blades (Rotating Orange Arms) */}
-                  <motion.g
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    style={{ originX: '75px', originY: '75px' }}
-                  >
+                  <g transform="translate(75, 75)">
                     <motion.g
-                      animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
-                      style={{ originX: '75px', originY: '75px' }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 360 }}
+                      transition={{ 
+                        opacity: { duration: 0.5, delay: 0.2 },
+                        scale: { duration: 0.5, delay: 0.2 },
+                        rotate: { repeat: Infinity, duration: 0.15, ease: "linear" }
+                      }}
                     >
-                      <line x1="110" y1="110" x2="40" y2="40" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
+                      <line x1="-35" y1="-35" x2="35" y2="35" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
                     </motion.g>
-                  </motion.g>
+                  </g>
 
-                  <motion.g
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    style={{ originX: '225px', originY: '75px' }}
-                  >
+                  <g transform="translate(225, 75)">
                     <motion.g
-                      animate={{ rotate: -360 }}
-                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
-                      style={{ originX: '225px', originY: '75px' }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1, rotate: -360 }}
+                      transition={{ 
+                        opacity: { duration: 0.5, delay: 0.3 },
+                        scale: { duration: 0.5, delay: 0.3 },
+                        rotate: { repeat: Infinity, duration: 0.15, ease: "linear" }
+                      }}
                     >
-                      <line x1="190" y1="110" x2="260" y2="40" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
+                      <line x1="-35" y1="35" x2="35" y2="-35" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
                     </motion.g>
-                  </motion.g>
+                  </g>
 
-                  <motion.g
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    style={{ originX: '75px', originY: '225px' }}
-                  >
+                  <g transform="translate(75, 225)">
                     <motion.g
-                      animate={{ rotate: -360 }}
-                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
-                      style={{ originX: '75px', originY: '225px' }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1, rotate: -360 }}
+                      transition={{ 
+                        opacity: { duration: 0.5, delay: 0.4 },
+                        scale: { duration: 0.5, delay: 0.4 },
+                        rotate: { repeat: Infinity, duration: 0.15, ease: "linear" }
+                      }}
                     >
-                      <line x1="110" y1="190" x2="40" y2="260" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
+                      <line x1="-35" y1="35" x2="35" y2="-35" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
                     </motion.g>
-                  </motion.g>
+                  </g>
 
-                  <motion.g
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    style={{ originX: '225px', originY: '225px' }}
-                  >
+                  <g transform="translate(225, 225)">
                     <motion.g
-                      animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
-                      style={{ originX: '225px', originY: '225px' }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 360 }}
+                      transition={{ 
+                        opacity: { duration: 0.5, delay: 0.5 },
+                        scale: { duration: 0.5, delay: 0.5 },
+                        rotate: { repeat: Infinity, duration: 0.15, ease: "linear" }
+                      }}
                     >
-                      <line x1="190" y1="190" x2="260" y2="260" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
+                      <line x1="-35" y1="-35" x2="35" y2="35" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
                     </motion.g>
-                  </motion.g>
+                  </g>
                 </svg>
               </motion.div>
             </motion.div>
