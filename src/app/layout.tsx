@@ -25,6 +25,7 @@ import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
+import SplashScreen from "@/components/SplashScreen";
 
 export default function RootLayout({
   children,
@@ -38,6 +39,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-[var(--color-brand-dark)] text-white">
         <SmoothScroll>
+          <SplashScreen />
           <CustomCursor />
           <Navbar />
           <main className="flex-grow">
