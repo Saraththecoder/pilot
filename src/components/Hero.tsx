@@ -95,7 +95,7 @@ export default function Hero() {
         <ScrollFrameSequence 
           frameCount={280} 
           frameBasePath={getFramePath}
-          scrollHeight="600vh"
+          scrollHeight="400vh"
         >
           {/* Overlay Content */}
           <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center">
