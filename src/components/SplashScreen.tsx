@@ -7,10 +7,10 @@ export default function SplashScreen() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Hide splash screen after 3 seconds
+    // Hide splash screen after 3.5 seconds to hold for 3 seconds of animation
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 3500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -103,23 +103,70 @@ export default function SplashScreen() {
                     x1="190" y1="190" x2="260" y2="260" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" 
                   />
 
-                  {/* Subtle Propeller Spin overlay (Optional, but adds to the loading effect) */}
-                  <motion.circle 
-                    cx="75" cy="75" r="28" fill="none" stroke="rgba(245, 133, 31, 0.2)" strokeWidth="2" strokeDasharray="20 10"
-                    animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} style={{ originX: '75px', originY: '75px' }}
-                  />
-                  <motion.circle 
-                    cx="225" cy="75" r="28" fill="none" stroke="rgba(245, 133, 31, 0.2)" strokeWidth="2" strokeDasharray="20 10"
-                    animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} style={{ originX: '225px', originY: '75px' }}
-                  />
-                  <motion.circle 
-                    cx="75" cy="225" r="28" fill="none" stroke="rgba(245, 133, 31, 0.2)" strokeWidth="2" strokeDasharray="20 10"
-                    animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} style={{ originX: '75px', originY: '225px' }}
-                  />
-                  <motion.circle 
-                    cx="225" cy="225" r="28" fill="none" stroke="rgba(245, 133, 31, 0.2)" strokeWidth="2" strokeDasharray="20 10"
-                    animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} style={{ originX: '225px', originY: '225px' }}
-                  />
+                  {/* Propeller Blades (Rotating) */}
+                  <motion.g
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 0.8, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 1.0 }}
+                    style={{ originX: '75px', originY: '75px' }}
+                  >
+                    <motion.g
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
+                      style={{ originX: '75px', originY: '75px' }}
+                    >
+                      <path d="M 45 75 Q 75 65 105 75 Q 75 85 45 75 Z" fill="#222" />
+                      <path d="M 75 45 Q 85 75 75 105 Q 65 75 75 45 Z" fill="#222" />
+                    </motion.g>
+                  </motion.g>
+
+                  <motion.g
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 0.8, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 1.0 }}
+                    style={{ originX: '225px', originY: '75px' }}
+                  >
+                    <motion.g
+                      animate={{ rotate: -360 }}
+                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
+                      style={{ originX: '225px', originY: '75px' }}
+                    >
+                      <path d="M 195 75 Q 225 65 255 75 Q 225 85 195 75 Z" fill="#222" />
+                      <path d="M 225 45 Q 235 75 225 105 Q 215 75 225 45 Z" fill="#222" />
+                    </motion.g>
+                  </motion.g>
+
+                  <motion.g
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 0.8, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 1.0 }}
+                    style={{ originX: '75px', originY: '225px' }}
+                  >
+                    <motion.g
+                      animate={{ rotate: -360 }}
+                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
+                      style={{ originX: '75px', originY: '225px' }}
+                    >
+                      <path d="M 45 225 Q 75 215 105 225 Q 75 235 45 225 Z" fill="#222" />
+                      <path d="M 75 195 Q 85 225 75 255 Q 65 225 75 195 Z" fill="#222" />
+                    </motion.g>
+                  </motion.g>
+
+                  <motion.g
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 0.8, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 1.0 }}
+                    style={{ originX: '225px', originY: '225px' }}
+                  >
+                    <motion.g
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
+                      style={{ originX: '225px', originY: '225px' }}
+                    >
+                      <path d="M 195 225 Q 225 215 255 225 Q 225 235 195 225 Z" fill="#222" />
+                      <path d="M 225 195 Q 235 225 225 255 Q 215 225 225 195 Z" fill="#222" />
+                    </motion.g>
+                  </motion.g>
                 </svg>
               </motion.div>
             </motion.div>
@@ -142,7 +189,7 @@ export default function SplashScreen() {
                 <motion.div 
                   initial={{ width: "0%" }}
                   animate={{ width: "100%" }}
-                  transition={{ duration: 2.5, ease: "easeInOut" }}
+                  transition={{ duration: 3.0, ease: "easeInOut" }}
                   className="h-full bg-[var(--color-brand-orange)]"
                 />
               </div>
