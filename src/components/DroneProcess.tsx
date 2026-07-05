@@ -60,10 +60,10 @@ export default function DroneProcess() {
   const droneRef = useRef<HTMLDivElement>(null);
 
   const steps = [
-    { title: "Pre-Flight Planning", desc: "Detailed consultation, airspace checks, and mission planning.", side: "right" },
-    { title: "Precision Flight", desc: "State-of-the-art drones execute the mission safely.", side: "left" },
-    { title: "Data Capture", desc: "High-resolution media and sensory data collected perfectly.", side: "right" },
-    { title: "Post-Processing", desc: "Professional editing, color grading, and final delivery.", side: "left" },
+    { title: "Pre-Flight Planning", desc: "Detailed consultation, airspace checks, and mission planning.", side: "left" },
+    { title: "Precision Flight", desc: "State-of-the-art drones execute the mission safely.", side: "right" },
+    { title: "Data Capture", desc: "High-resolution media and sensory data collected perfectly.", side: "left" },
+    { title: "Post-Processing", desc: "Professional editing, color grading, and final delivery.", side: "right" },
   ];
 
   useEffect(() => {
@@ -83,14 +83,14 @@ export default function DroneProcess() {
         }
       });
 
-      // Fly to Step 1 (Right)
-      tl.to(droneRef.current, { x: "25vw", rotation: 15, duration: 1 })
-        // Fly to Step 2 (Left)
-        .to(droneRef.current, { x: "-25vw", rotation: -15, duration: 2 })
-        // Fly to Step 3 (Right)
+      // Fly to Step 1 (Left)
+      tl.to(droneRef.current, { x: "-25vw", rotation: -15, duration: 1 })
+        // Fly to Step 2 (Right)
         .to(droneRef.current, { x: "25vw", rotation: 15, duration: 2 })
-        // Fly to Step 4 (Left)
+        // Fly to Step 3 (Left)
         .to(droneRef.current, { x: "-25vw", rotation: -15, duration: 2 })
+        // Fly to Step 4 (Right)
+        .to(droneRef.current, { x: "25vw", rotation: 15, duration: 2 })
         // Return to center
         .to(droneRef.current, { x: 0, rotation: 0, duration: 1 });
     });
@@ -106,10 +106,10 @@ export default function DroneProcess() {
         }
       });
 
-      tl.to(droneRef.current, { x: "10vw", rotation: 10, duration: 1 })
-        .to(droneRef.current, { x: "-10vw", rotation: -10, duration: 2 })
+      tl.to(droneRef.current, { x: "-10vw", rotation: -10, duration: 1 })
         .to(droneRef.current, { x: "10vw", rotation: 10, duration: 2 })
         .to(droneRef.current, { x: "-10vw", rotation: -10, duration: 2 })
+        .to(droneRef.current, { x: "10vw", rotation: 10, duration: 2 })
         .to(droneRef.current, { x: 0, rotation: 0, duration: 1 });
     });
 
@@ -143,51 +143,36 @@ export default function DroneProcess() {
 
         {/* Steps Timeline */}
         <div className="relative z-20 flex flex-col w-full">
-          
-          {/* SVG Flight Path Background */}
-          <svg className="absolute top-0 left-0 w-full h-full pointer-events-none hidden md:block z-0 opacity-70" preserveAspectRatio="none" viewBox="0 0 100 100">
-            <defs>
-              <filter id="glowPath">
-                <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-            {/* The diagonal crossing line mimicking the flight path */}
-            <path 
-              d="M 50 0 L 75 12.5 L 25 37.5 L 75 62.5 L 25 87.5 L 50 100" 
-              stroke="var(--color-brand-orange)" 
-              strokeWidth="0.3" 
-              fill="none" 
-              filter="url(#glowPath)"
-            />
-          </svg>
+          {/* A subtle center line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 hidden md:block" />
 
           {steps.map((step, index) => (
             <div 
               key={index} 
-              className="min-h-[70vh] md:min-h-screen w-full flex items-center relative px-4 md:px-0 z-10"
+              className={`min-h-[70vh] md:min-h-screen w-full flex items-center px-4 md:px-0 ${
+                step.side === 'left' ? 'justify-start md:justify-end' : 'justify-end md:justify-start'
+              }`}
             >
-              {/* Mobile connecting dot (hidden on desktop) */}
-              <div className="absolute left-4 w-3 h-3 rounded-full bg-[var(--color-brand-orange)] md:hidden top-1/2 -translate-y-1/2 shadow-[0_0_10px_var(--color-brand-orange)] z-10" />
+              <div 
+                className={`w-[80%] md:w-[40%] bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-xl shadow-2xl relative ${
+                  step.side === 'left' ? 'md:mr-16' : 'md:ml-16'
+                }`}
+              >
+                {/* Connecting Dot */}
+                <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--color-brand-orange)] hidden md:block shadow-[0_0_15px_var(--color-brand-orange)] ${
+                  step.side === 'left' ? '-right-2' : '-left-2'
+                }`} />
 
-              <div className={`w-full md:w-1/2 flex ${step.side === 'left' ? 'md:justify-end md:pr-12 lg:pr-24' : 'md:justify-start md:ml-auto md:pl-12 lg:pl-24'}`}>
-                
-                <div className="w-[85%] md:w-full max-w-md ml-auto md:ml-0 bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-xl shadow-2xl relative group hover:border-[var(--color-brand-orange)]/50 transition-colors duration-500">
-                  
-                  <div className="text-[var(--color-brand-orange)] font-oswald text-5xl md:text-7xl font-bold opacity-20 absolute -top-4 md:-top-8 left-4 md:left-6 transition-opacity duration-500 group-hover:opacity-40">
-                    0{index + 1}
-                  </div>
-                  
-                  <h3 className="font-oswald text-2xl md:text-3xl text-white font-bold uppercase mb-3 relative z-10">
-                    {step.title}
-                  </h3>
-                  <p className="font-inter text-gray-400 text-sm md:text-base relative z-10 leading-relaxed">
-                    {step.desc}
-                  </p>
+                <div className="text-[var(--color-brand-orange)] font-oswald text-5xl md:text-7xl font-bold opacity-20 absolute -top-4 md:-top-8 left-4 md:left-6">
+                  0{index + 1}
                 </div>
+                
+                <h3 className="font-oswald text-2xl md:text-3xl text-white font-bold uppercase mb-3 relative z-10">
+                  {step.title}
+                </h3>
+                <p className="font-inter text-gray-400 text-sm md:text-base relative z-10 leading-relaxed">
+                  {step.desc}
+                </p>
               </div>
             </div>
           ))}
