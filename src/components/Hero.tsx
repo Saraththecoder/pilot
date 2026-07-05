@@ -40,13 +40,13 @@ export default function Hero() {
       gsap.set(overlayRef.current, { opacity: 0 });
       gsap.set('.hero-anim', { opacity: 0, y: 100, scale: 0.95 });
 
-      // Animate the pop-up overlay precisely during the final 20% of the scroll sequence
+      // Animate the pop-up overlay earlier in the scroll sequence
       const popupTl = gsap.timeline({
         scrollTrigger: {
           trigger: "#hero-container",
-          start: "80% top", // Starts when we have scrolled 80% of the container
-          end: "bottom top", // Ends when the container is fully scrolled out
-          scrub: 0.5, // Add a tiny bit of smoothing to the reverse/forward
+          start: "60% top", // Starts fading in much earlier
+          end: "85% top", // Fully visible before the end of the scroll
+          scrub: 0.5, // Smooth scrubbing
         }
       });
 
