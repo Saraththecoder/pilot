@@ -76,95 +76,64 @@ export default function SplashScreen() {
                     <path d="M15 0 L20 12" stroke="#ffcc00" strokeWidth="4" strokeLinecap="round" />
                   </g>
 
-                  {/* Orange Arms (Top Layer) */}
-                  {/* We use Framer Motion to draw the arms in */}
-                  <motion.line 
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                    x1="110" y1="110" x2="40" y2="40" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" 
-                  />
-                  <motion.line 
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-                    x1="190" y1="110" x2="260" y2="40" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" 
-                  />
-                  <motion.line 
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
-                    x1="110" y1="190" x2="40" y2="260" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" 
-                  />
-                  <motion.line 
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-                    x1="190" y1="190" x2="260" y2="260" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" 
-                  />
-
-                  {/* Propeller Blades (Rotating) */}
+                  {/* Propeller Blades (Rotating Orange Arms) */}
                   <motion.g
                     initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 0.8, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 1.0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
                     style={{ originX: '75px', originY: '75px' }}
                   >
-                    <circle cx="75" cy="75" r="28" fill="rgba(0,0,0,0.03)" />
                     <motion.g
                       animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
+                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
                       style={{ originX: '75px', originY: '75px' }}
                     >
-                      <path d="M 47 75 Q 75 69 103 75 Q 75 81 47 75 Z" fill="#222" />
+                      <line x1="110" y1="110" x2="40" y2="40" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
                     </motion.g>
                   </motion.g>
 
                   <motion.g
                     initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 0.8, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 1.0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
                     style={{ originX: '225px', originY: '75px' }}
                   >
-                    <circle cx="225" cy="75" r="28" fill="rgba(0,0,0,0.03)" />
                     <motion.g
                       animate={{ rotate: -360 }}
-                      transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
+                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
                       style={{ originX: '225px', originY: '75px' }}
                     >
-                      <path d="M 197 75 Q 225 69 253 75 Q 225 81 197 75 Z" fill="#222" />
+                      <line x1="190" y1="110" x2="260" y2="40" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
                     </motion.g>
                   </motion.g>
 
                   <motion.g
                     initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 0.8, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 1.0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
                     style={{ originX: '75px', originY: '225px' }}
                   >
-                    <circle cx="75" cy="225" r="28" fill="rgba(0,0,0,0.03)" />
                     <motion.g
                       animate={{ rotate: -360 }}
-                      transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
+                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
                       style={{ originX: '75px', originY: '225px' }}
                     >
-                      <path d="M 47 225 Q 75 219 103 225 Q 75 231 47 225 Z" fill="#222" />
+                      <line x1="110" y1="190" x2="40" y2="260" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
                     </motion.g>
                   </motion.g>
 
                   <motion.g
                     initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 0.8, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 1.0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
                     style={{ originX: '225px', originY: '225px' }}
                   >
-                    <circle cx="225" cy="225" r="28" fill="rgba(0,0,0,0.03)" />
                     <motion.g
                       animate={{ rotate: 360 }}
-                      transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
+                      transition={{ repeat: Infinity, duration: 0.15, ease: "linear" }}
                       style={{ originX: '225px', originY: '225px' }}
                     >
-                      <path d="M 197 225 Q 225 219 253 225 Q 225 231 197 225 Z" fill="#222" />
+                      <line x1="190" y1="190" x2="260" y2="260" stroke="#f5851f" strokeWidth="14" strokeLinecap="round" />
                     </motion.g>
                   </motion.g>
                 </svg>
