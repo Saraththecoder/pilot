@@ -7,7 +7,7 @@ import ScrollFrameSequence from "./ScrollFrameSequence";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
-import SplitType from "split-type";
+import { ArrowRight, Phone } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,40 +36,26 @@ export default function Hero() {
       gsap.to(".intro-sub", { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 3.8 });
       gsap.to(".intro-head", { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 4.0 });
 
-      // Animate overlay content to fade in at the last 20% of the scrub.
+      // Animate overlay content to fade in at the very end of the scroll (last 20%)
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: "#hero-container",
           start: "top top",
           end: "bottom bottom",
-          scrub: true,
-          onEnter: () => {
-             // Split text when it enters
-             const heading = new SplitType('.hero-heading', { types: 'chars,words' });
-             const tagline = new SplitType('.hero-tagline', { types: 'words' });
-             
-             // Initial state
-             gsap.set(heading.chars, { y: 100, opacity: 0 });
-             gsap.set(tagline.words, { y: 50, opacity: 0 });
-             gsap.set('.hero-cta', { y: 30, opacity: 0 });
-          },
-          onUpdate: (self) => {
-             // If scrub reaches 80%, trigger the split text animation
-             if (self.progress > 0.8 && !tl.data?.animated) {
-                 tl.data = { animated: true };
-                 
-                 const heroTl = gsap.timeline();
-                 heroTl.to('.hero-overlay-content', { opacity: 1, duration: 0.1 })
-                       .to('.hero-heading .char', { y: 0, opacity: 1, stagger: 0.05, duration: 0.8, ease: 'back.out(1.7)' })
-                       .to('.hero-tagline .word', { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-                       .to('.hero-cta', { y: 0, opacity: 1, stagger: 0.2, duration: 0.8, ease: 'power3.out' }, '-=0.2');
-             }
-          }
+          scrub: true, // This allows the animation to automatically reverse when scrolling back up!
         }
       });
       
-      // Keep it hidden initially
+      // Delay animation until 80% scroll
+      tl.addLabel("startOverlay", 0.8);
+      
+      // Initially hide the overlay and its children
       gsap.set(overlayRef.current, { opacity: 0 });
+      gsap.set('.hero-anim', { opacity: 0, y: 50 });
+
+      // Animate them in based on scrub from 80% to 100%
+      tl.to(overlayRef.current, { opacity: 1, duration: 0.02 }, "startOverlay")
+        .to('.hero-anim', { opacity: 1, y: 0, stagger: 0.04, duration: 0.18, ease: "power2.out" }, "startOverlay");
     });
 
     return () => {
@@ -107,7 +93,7 @@ export default function Hero() {
               <div className="absolute inset-0 spotlight-glow opacity-50 z-[-1]" />
               
               {/* Logo Mark */}
-              <div className="relative w-32 h-32 md:w-40 md:h-40 mb-6 drop-shadow-2xl">
+              <div className="hero-anim relative w-32 h-32 md:w-40 md:h-40 mb-6 drop-shadow-2xl">
                 <Image 
                   src="/logo.png" 
                   alt="SkyPilot Logo Mark" 
@@ -121,13 +107,13 @@ export default function Hero() {
               </div>
               
               {/* Wordmark */}
-              <h1 className="hero-heading font-oswald text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
+              <h1 className="hero-anim hero-heading font-oswald text-5xl md:text-7xl lg:text-8xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
                 <span className="text-gradient-silver mr-4">Sky</span>
                 <span className="text-[var(--color-brand-orange)]">Pilot</span>
               </h1>
               
               {/* Tagline */}
-              <p className="hero-tagline font-inter text-sm md:text-xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-gray-300 mb-8 max-w-2xl px-4" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
+              <p className="hero-anim hero-tagline font-inter text-sm md:text-xl uppercase tracking-[0.4em] md:tracking-[0.6em] text-gray-300 mb-8 max-w-2xl px-4" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
                 Aerial Cinematography
               </p>
               
@@ -136,13 +122,13 @@ export default function Hero() {
                 href="https://wa.me/919391705935"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hero-cta hover-target bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-5"
+                className="hero-anim hero-cta hover-target bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-5"
               >
                 Get a Free Quote
               </a>
 
               {/* Secondary CTAs Row */}
-              <div className="hero-cta flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+              <div className="hero-anim hero-cta flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
                 <Link
                   href="/services"
                   className="hover-target group flex items-center gap-2 border-2 border-white/30 text-white px-6 py-3 rounded-full font-oswald text-sm tracking-widest uppercase font-bold hover:border-[var(--color-brand-orange)] hover:text-[var(--color-brand-orange)] hover:shadow-[0_0_20px_rgba(245,133,31,0.2)] transition-all duration-300 backdrop-blur-sm bg-white/5"
