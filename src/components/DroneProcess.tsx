@@ -117,7 +117,7 @@ export default function DroneProcess() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[var(--color-brand-dark)] py-20 overflow-hidden">
+    <section ref={containerRef} className="relative w-full bg-[var(--color-brand-dark)] py-20">
       
       {/* Background Styling */}
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at center, var(--color-brand-orange) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
@@ -160,7 +160,7 @@ export default function DroneProcess() {
               >
                 {/* Connecting Dot */}
                 <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--color-brand-orange)] hidden md:block shadow-[0_0_15px_var(--color-brand-orange)] ${
-                  step.side === 'left' ? '-right-18' : '-left-18'
+                  step.side === 'left' ? '-right-2' : '-left-2'
                 }`} />
 
                 <div className="text-[var(--color-brand-orange)] font-oswald text-5xl md:text-7xl font-bold opacity-20 absolute -top-4 md:-top-8 left-4 md:left-6">
