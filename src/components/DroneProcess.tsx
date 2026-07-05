@@ -144,35 +144,41 @@ export default function DroneProcess() {
         {/* Steps Timeline */}
         <div className="relative z-20 flex flex-col w-full">
           {/* A subtle center line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 hidden md:block" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2 hidden md:block" />
 
           {steps.map((step, index) => (
             <div 
               key={index} 
-              className={`min-h-[70vh] md:min-h-screen w-full flex items-center px-4 md:px-0 ${
-                step.side === 'left' ? 'justify-start md:justify-end' : 'justify-end md:justify-start'
-              }`}
+              className="min-h-[70vh] md:min-h-screen w-full flex items-center relative px-4 md:px-0"
             >
-              <div 
-                className={`w-[80%] md:w-[40%] bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-xl shadow-2xl relative ${
-                  step.side === 'left' ? 'md:mr-16' : 'md:ml-16'
-                }`}
-              >
-                {/* Connecting Dot */}
-                <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--color-brand-orange)] hidden md:block shadow-[0_0_15px_var(--color-brand-orange)] ${
-                  step.side === 'left' ? '-right-2' : '-left-2'
-                }`} />
+              {/* Mobile connecting dot (hidden on desktop) */}
+              <div className="absolute left-4 w-3 h-3 rounded-full bg-[var(--color-brand-orange)] md:hidden top-1/2 -translate-y-1/2 shadow-[0_0_10px_var(--color-brand-orange)] z-10" />
 
-                <div className="text-[var(--color-brand-orange)] font-oswald text-5xl md:text-7xl font-bold opacity-20 absolute -top-4 md:-top-8 left-4 md:left-6">
-                  0{index + 1}
-                </div>
+              <div className={`w-full md:w-1/2 flex ${step.side === 'left' ? 'md:justify-end md:pr-12 lg:pr-24' : 'md:justify-start md:ml-auto md:pl-12 lg:pl-24'}`}>
                 
-                <h3 className="font-oswald text-2xl md:text-3xl text-white font-bold uppercase mb-3 relative z-10">
-                  {step.title}
-                </h3>
-                <p className="font-inter text-gray-400 text-sm md:text-base relative z-10 leading-relaxed">
-                  {step.desc}
-                </p>
+                <div className="w-[85%] md:w-full max-w-md ml-auto md:ml-0 bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-xl shadow-2xl relative">
+                  
+                  {/* Desktop Connecting Glow Line & Dot */}
+                  <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[2px] w-12 lg:w-24 bg-[var(--color-brand-orange)] shadow-[0_0_15px_var(--color-brand-orange)] ${
+                    step.side === 'left' ? '-right-12 lg:-right-24' : '-left-12 lg:-left-24'
+                  }`}>
+                    {/* The Dot exactly on the center line */}
+                    <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2 border-[var(--color-brand-orange)] shadow-[0_0_15px_var(--color-brand-orange)] z-10 ${
+                      step.side === 'left' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'
+                    }`} />
+                  </div>
+
+                  <div className="text-[var(--color-brand-orange)] font-oswald text-5xl md:text-7xl font-bold opacity-20 absolute -top-4 md:-top-8 left-4 md:left-6">
+                    0{index + 1}
+                  </div>
+                  
+                  <h3 className="font-oswald text-2xl md:text-3xl text-white font-bold uppercase mb-3 relative z-10">
+                    {step.title}
+                  </h3>
+                  <p className="font-inter text-gray-400 text-sm md:text-base relative z-10 leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
