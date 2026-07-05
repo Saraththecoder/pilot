@@ -3,162 +3,136 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Shield, Sparkles, ThumbsUp, Medal, Users, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function WhyChooseUs() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const reasons = [
+    {
+      title: "Expertise and Experience",
+      description: "Our team of skilled drone pilots and photographers bring years of experience and a keen eye for detail to every project. We are dedicated to delivering exceptional results that exceed your expectations.",
+      img: "/icons/expertise.png"
+    },
+    {
+      title: "Cutting-Edge Technology",
+      description: "Sky Pilot invests in cutting-edge drone technology to ensure the highest quality footage. Our drones are equipped with advanced stabilization systems, high-resolution cameras, and intelligent flight modes for precision and reliability.",
+      img: "/icons/technology.png"
+    },
+    {
+      title: "Custom Solutions",
+      description: "We understand that every project is unique. Our team works closely with clients to tailor our drone shoot services to meet specific requirements, ensuring a personalized and impactful visual experience.",
+      img: "/icons/solutions.png"
+    },
+    {
+      title: "Compliance and Safety",
+      description: "Safety is paramount. Sky Pilot adheres to all regulations and guidelines for drone operations, prioritizing the well-being of our team, clients, and the public.",
+      img: "/icons/safety.png"
+    },
+    {
+      title: "Timely Delivery",
+      description: "We value your time. Our efficient workflow and commitment to deadlines ensure that you receive your stunning drone-captured visuals promptly, without compromising on quality.",
+      img: "/icons/delivery.png"
+    }
+  ];
 
   useEffect(() => {
+    if (!sectionRef.current || !containerRef.current) return;
+
+    // Use matchMedia to only do horizontal scroll on desktop, or do it on all?
+    // The user said "scrolling each should appear one by one in horizontal direction"
+    // Let's implement it for all screens.
     const ctx = gsap.context(() => {
-      // Header Animation
-      if (headerRef.current) {
-        gsap.fromTo(
-          headerRef.current.children,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: headerRef.current,
-              start: "top 85%",
-            },
-          }
-        );
-      }
-
-      // Grid Items — dramatic flying card flip entrance
-      if (gridRef.current) {
-        gsap.fromTo(
-          gridRef.current.children,
-          { 
-            opacity: 0, 
-            z: -2000, 
-            rotationX: () => gsap.utils.random(-45, 45), 
-            rotationY: () => gsap.utils.random(-45, 45), 
-            y: 100 
-          },
-          {
-            opacity: 1,
-            z: 0,
-            rotationX: 0,
-            rotationY: 0,
-            y: 0,
-            duration: 1.5,
-            stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: "top 85%",
-            },
-          }
-        );
-
-        // Add a continuous floating animation to the icons after they appear
-        const icons = gridRef.current.querySelectorAll('.icon-wrapper');
-        icons.forEach((icon, i) => {
-          gsap.to(icon, {
-            y: -10,
-            duration: 1.5 + Math.random(),
+      const cards = gsap.utils.toArray('.horizontal-card') as HTMLElement[];
+      
+      // Calculate how far to move the container to see all cards
+      // It's a horizontal scroll layout so we move it -100% + 1 viewport width (approx)
+      const totalWidth = containerRef.current!.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      
+      gsap.to(containerRef.current, {
+        x: () => -(totalWidth - viewportWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${totalWidth}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true, // Recalculates on resize
+        }
+      });
+      
+      // Also add a little float animation to the 3D images
+      cards.forEach((card, i) => {
+        const img = card.querySelector('.icon-3d');
+        if (img) {
+          gsap.to(img, {
+            y: -15,
+            rotationY: 10,
+            duration: 2 + Math.random(),
             repeat: -1,
             yoyo: true,
-            ease: "sine.inOut",
-            delay: i * 0.1
+            ease: "sine.inOut"
           });
-        });
-      }
+        }
+      });
+
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  const reasons = [
-    {
-      title: "Professionalism",
-      description: "Expert operators dedicated to delivering seamless execution on every project.",
-      icon: <Medal className="w-10 h-10" />
-    },
-    {
-      title: "Safety First",
-      description: "Strict adherence to safety protocols and local aviation regulations.",
-      icon: <Shield className="w-10 h-10" />
-    },
-    {
-      title: "Innovation",
-      description: "Utilizing the latest drone technology and camera systems for superior results.",
-      icon: <Sparkles className="w-10 h-10" />
-    },
-    {
-      title: "Quality",
-      description: "Uncompromising standards for image clarity, data accuracy, and final deliverables.",
-      icon: <CheckCircle2 className="w-10 h-10" />
-    },
-    {
-      title: "Customer Satisfaction",
-      description: "Tailored solutions focused entirely on exceeding your specific goals.",
-      icon: <Users className="w-10 h-10" />
-    },
-    {
-      title: "Integrity",
-      description: "Transparent pricing, clear communication, and reliable timelines.",
-      icon: <ThumbsUp className="w-10 h-10" />
-    }
-  ];
-
   return (
-    <section ref={sectionRef} className="py-24 bg-[var(--color-brand-dark)] relative overflow-hidden">
+    <section ref={sectionRef} className="bg-[var(--color-brand-dark)] h-screen overflow-hidden relative flex flex-col justify-center">
       
       {/* Background motif */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] spotlight-glow opacity-30 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        <div ref={headerRef} className="text-center mb-16">
-          <h2 className="font-oswald text-4xl md:text-5xl font-bold uppercase tracking-wider mb-6">
-            Why <span className="text-gradient-silver">Choose</span> Us
-          </h2>
-          <p className="font-inter text-gray-400 max-w-2xl mx-auto">
-            We don&apos;t just fly drones; we deliver actionable data and cinematic brilliance. Here is what sets SkyPilot apart.
-          </p>
-        </div>
+      {/* Sticky Header inside the section */}
+      <div className="absolute top-10 md:top-20 left-0 w-full text-center z-20 px-4">
+        <h2 className="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wider mb-4 drop-shadow-xl">
+          Why Choose <span className="text-[var(--color-brand-orange)]">Sky Pilot ?</span>
+        </h2>
+      </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: "2000px" }}>
+      <div className="relative z-10 w-full mt-24">
+        <div ref={containerRef} className="flex gap-8 md:gap-16 px-10 md:px-32 w-max">
           {reasons.map((reason, idx) => (
             <div
               key={idx}
-              className="flip-card h-[280px] sm:h-[260px] lg:h-[240px] gpu-accelerated"
+              className="horizontal-card w-[85vw] md:w-[60vw] lg:w-[40vw] max-w-lg shrink-0 flex flex-col items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 md:p-12 shadow-2xl relative"
             >
-              <div className="flip-card-inner">
-                {/* Front */}
-                <div className="flip-card-front bg-[var(--color-brand-card)] border border-gray-800 flex flex-col items-center justify-center text-center p-6">
-                  <div className="icon-wrapper text-[var(--color-brand-orange)] mb-6 p-4 bg-black/50 rounded-full border border-gray-800 shadow-[0_0_15px_rgba(245,133,31,0.1)]">
-                    {reason.icon}
-                  </div>
-                  <h3 className="font-oswald text-xl uppercase tracking-wider text-white">
-                    {reason.title}
-                  </h3>
-                </div>
-                {/* Back */}
-                <div className="flip-card-back bg-gradient-to-br from-[var(--color-brand-card)] to-[#1a1a1a] border border-[var(--color-brand-orange)]/30 flex flex-col items-center justify-center text-center p-6">
-                  <div className="text-[var(--color-brand-orange)] mb-4">
-                    {reason.icon}
-                  </div>
-                  <h3 className="font-oswald text-lg uppercase tracking-wider mb-3 text-white">
-                    {reason.title}
-                  </h3>
-                  <p className="font-inter text-sm text-gray-400 leading-relaxed">
-                    {reason.description}
-                  </p>
-                </div>
+              {/* Giant Background Number */}
+              <div className="absolute -top-10 -right-4 text-[var(--color-brand-orange)] opacity-10 font-oswald text-9xl font-black pointer-events-none">
+                0{idx + 1}
               </div>
+
+              {/* 3D Icon */}
+              <div className="icon-3d w-40 h-40 md:w-56 md:h-56 relative mb-8 drop-shadow-[0_0_30px_rgba(245,133,31,0.3)]">
+                <Image 
+                  src={reason.img} 
+                  alt={reason.title} 
+                  fill 
+                  className="object-contain"
+                />
+              </div>
+
+              <h3 className="font-oswald text-2xl md:text-3xl uppercase tracking-wider text-white mb-4 text-center">
+                {reason.title}
+              </h3>
+              
+              <p className="font-inter text-gray-400 text-sm md:text-base leading-relaxed text-center">
+                {reason.description}
+              </p>
             </div>
           ))}
+          {/* Spacer block at the end to give padding before scroll finishes */}
+          <div className="w-[10vw] shrink-0" />
         </div>
-
       </div>
     </section>
   );
