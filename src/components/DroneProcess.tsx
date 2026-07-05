@@ -60,10 +60,10 @@ export default function DroneProcess() {
   const droneRef = useRef<HTMLDivElement>(null);
 
   const steps = [
-    { title: "Pre-Flight Planning", desc: "Detailed consultation, airspace checks, and mission planning.", side: "left" },
-    { title: "Precision Flight", desc: "State-of-the-art drones execute the mission safely.", side: "right" },
-    { title: "Data Capture", desc: "High-resolution media and sensory data collected perfectly.", side: "left" },
-    { title: "Post-Processing", desc: "Professional editing, color grading, and final delivery.", side: "right" },
+    { title: "Pre-Flight Planning", desc: "Detailed consultation, airspace checks, and mission planning.", side: "right" },
+    { title: "Precision Flight", desc: "State-of-the-art drones execute the mission safely.", side: "left" },
+    { title: "Data Capture", desc: "High-resolution media and sensory data collected perfectly.", side: "right" },
+    { title: "Post-Processing", desc: "Professional editing, color grading, and final delivery.", side: "left" },
   ];
 
   useEffect(() => {
@@ -83,14 +83,14 @@ export default function DroneProcess() {
         }
       });
 
-      // Fly to Step 1 (Left)
-      tl.to(droneRef.current, { x: "-25vw", rotation: -15, duration: 1 })
-        // Fly to Step 2 (Right)
-        .to(droneRef.current, { x: "25vw", rotation: 15, duration: 2 })
-        // Fly to Step 3 (Left)
+      // Fly to Step 1 (Right)
+      tl.to(droneRef.current, { x: "25vw", rotation: 15, duration: 1 })
+        // Fly to Step 2 (Left)
         .to(droneRef.current, { x: "-25vw", rotation: -15, duration: 2 })
-        // Fly to Step 4 (Right)
+        // Fly to Step 3 (Right)
         .to(droneRef.current, { x: "25vw", rotation: 15, duration: 2 })
+        // Fly to Step 4 (Left)
+        .to(droneRef.current, { x: "-25vw", rotation: -15, duration: 2 })
         // Return to center
         .to(droneRef.current, { x: 0, rotation: 0, duration: 1 });
     });
@@ -106,10 +106,10 @@ export default function DroneProcess() {
         }
       });
 
-      tl.to(droneRef.current, { x: "-10vw", rotation: -10, duration: 1 })
-        .to(droneRef.current, { x: "10vw", rotation: 10, duration: 2 })
+      tl.to(droneRef.current, { x: "10vw", rotation: 10, duration: 1 })
         .to(droneRef.current, { x: "-10vw", rotation: -10, duration: 2 })
         .to(droneRef.current, { x: "10vw", rotation: 10, duration: 2 })
+        .to(droneRef.current, { x: "-10vw", rotation: -10, duration: 2 })
         .to(droneRef.current, { x: 0, rotation: 0, duration: 1 });
     });
 
@@ -143,32 +143,41 @@ export default function DroneProcess() {
 
         {/* Steps Timeline */}
         <div className="relative z-20 flex flex-col w-full">
-          {/* A subtle center line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2 hidden md:block" />
+          
+          {/* SVG Flight Path Background */}
+          <svg className="absolute top-0 left-0 w-full h-full pointer-events-none hidden md:block z-0 opacity-70" preserveAspectRatio="none" viewBox="0 0 100 100">
+            <defs>
+              <filter id="glowPath">
+                <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            {/* The diagonal crossing line mimicking the flight path */}
+            <path 
+              d="M 50 0 L 75 12.5 L 25 37.5 L 75 62.5 L 25 87.5 L 50 100" 
+              stroke="var(--color-brand-orange)" 
+              strokeWidth="0.3" 
+              fill="none" 
+              filter="url(#glowPath)"
+            />
+          </svg>
 
           {steps.map((step, index) => (
             <div 
               key={index} 
-              className="min-h-[70vh] md:min-h-screen w-full flex items-center relative px-4 md:px-0"
+              className="min-h-[70vh] md:min-h-screen w-full flex items-center relative px-4 md:px-0 z-10"
             >
               {/* Mobile connecting dot (hidden on desktop) */}
               <div className="absolute left-4 w-3 h-3 rounded-full bg-[var(--color-brand-orange)] md:hidden top-1/2 -translate-y-1/2 shadow-[0_0_10px_var(--color-brand-orange)] z-10" />
 
               <div className={`w-full md:w-1/2 flex ${step.side === 'left' ? 'md:justify-end md:pr-12 lg:pr-24' : 'md:justify-start md:ml-auto md:pl-12 lg:pl-24'}`}>
                 
-                <div className="w-[85%] md:w-full max-w-md ml-auto md:ml-0 bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-xl shadow-2xl relative">
+                <div className="w-[85%] md:w-full max-w-md ml-auto md:ml-0 bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-10 rounded-xl shadow-2xl relative group hover:border-[var(--color-brand-orange)]/50 transition-colors duration-500">
                   
-                  {/* Desktop Connecting Glow Line & Dot */}
-                  <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[2px] w-12 lg:w-24 bg-[var(--color-brand-orange)] shadow-[0_0_15px_var(--color-brand-orange)] ${
-                    step.side === 'left' ? '-right-12 lg:-right-24' : '-left-12 lg:-left-24'
-                  }`}>
-                    {/* The Dot exactly on the center line */}
-                    <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2 border-[var(--color-brand-orange)] shadow-[0_0_15px_var(--color-brand-orange)] z-10 ${
-                      step.side === 'left' ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'
-                    }`} />
-                  </div>
-
-                  <div className="text-[var(--color-brand-orange)] font-oswald text-5xl md:text-7xl font-bold opacity-20 absolute -top-4 md:-top-8 left-4 md:left-6">
+                  <div className="text-[var(--color-brand-orange)] font-oswald text-5xl md:text-7xl font-bold opacity-20 absolute -top-4 md:-top-8 left-4 md:left-6 transition-opacity duration-500 group-hover:opacity-40">
                     0{index + 1}
                   </div>
                   
