@@ -101,7 +101,7 @@ export default function Hero() {
           <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center">
             <div 
               ref={overlayRef}
-              className="flex flex-col items-center justify-center text-center opacity-0 pointer-events-auto"
+              className="hero-overlay-content flex flex-col items-center justify-center text-center opacity-0 pointer-events-auto"
             >
               {/* Spotlight Glow behind content */}
               <div className="absolute inset-0 spotlight-glow opacity-50 z-[-1]" />
