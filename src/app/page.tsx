@@ -3,6 +3,7 @@ import ParallaxShowcase from "@/components/ParallaxShowcase";
 import About from "@/components/About";
 import StatsCounter from "@/components/StatsCounter";
 import Services from "@/components/Services";
+import DroneProcess from "@/components/DroneProcess";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Portfolio from "@/components/Portfolio";
 import ClientsReviews from "@/components/ClientsReviews";
@@ -17,6 +18,7 @@ export default function Home() {
       <About />
       <StatsCounter />
       <Services />
+      <DroneProcess />
       <WhyChooseUs />
       <Portfolio />
       <ClientsReviews />
