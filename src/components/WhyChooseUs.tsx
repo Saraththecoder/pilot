@@ -130,8 +130,32 @@ export default function WhyChooseUs() {
               </p>
             </div>
           ))}
-          {/* Spacer block at the end to give padding before scroll finishes */}
-          <div className="w-[10vw] shrink-0" />
+
+          {/* Final CTA Frame */}
+          <div className="horizontal-card w-[85vw] md:w-[60vw] lg:w-[40vw] max-w-lg shrink-0 flex flex-col items-center justify-center bg-gradient-to-br from-[var(--color-brand-orange)] to-orange-800 rounded-2xl p-8 md:p-12 shadow-[0_0_40px_rgba(245,133,31,0.4)] relative overflow-hidden">
+            <div className="absolute inset-0 bg-black/20" />
+            <div className="relative z-10 flex flex-col items-center text-center">
+              {/* Logo */}
+              <div className="w-24 h-24 relative mb-6">
+                <Image src="/logo.png" alt="Sky Pilot Logo" fill className="object-contain drop-shadow-2xl" />
+              </div>
+              <h3 className="font-oswald text-3xl md:text-4xl uppercase tracking-wider text-white mb-4">
+                Ready to Fly?
+              </h3>
+              <p className="font-inter text-white/90 text-sm md:text-base mb-8 max-w-sm">
+                Elevate your next project with industry-leading aerial drone services.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                <a href="/services" className="bg-white text-black px-6 py-3 rounded-full font-oswald uppercase tracking-widest text-sm font-bold hover:bg-gray-200 transition-colors">
+                  Explore Services
+                </a>
+                <a href="/contact" className="bg-black/50 text-white px-6 py-3 rounded-full font-oswald uppercase tracking-widest text-sm font-bold hover:bg-black transition-colors border border-white/20">
+                  Contact Us
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
