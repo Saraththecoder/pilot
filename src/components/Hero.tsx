@@ -79,24 +79,19 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative w-full bg-black flex flex-col">
-      {/* Plain Black Intro Section */}
-      <div className="intro-text-section w-full min-h-screen flex flex-col items-center justify-center bg-black text-center px-4 relative z-10">
-        <p className="intro-sub font-inter text-[var(--color-brand-orange)] tracking-[0.3em] md:tracking-[0.4em] text-xs md:text-sm uppercase mb-6 font-semibold">
-          Introducing SkyPilot
-        </p>
-        <h1 className="intro-head font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white max-w-5xl mx-auto leading-tight md:leading-[1.1] tracking-tight mb-2">
-          Elevating Perspectives with Drone Shoot Services
-        </h1>
-        <h2 className="intro-head font-oswald text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-brand-orange)] tracking-tight">
-          Realestate Centric
-        </h2>
-      </div>
-
-      {/* 
-        This div wraps the frame sequence. We give it an ID so the ScrollTrigger 
-        in this component can sync with the scroll distance of the pinned canvas.
-      */}
-      <div id="hero-container">
+      <div id="hero-container" className="relative">
+        {/* Intro Section Overlaying the Animation */}
+        <div className="intro-text-section absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center text-center px-4 z-[30] pointer-events-none bg-black/60">
+          <p className="intro-sub font-inter text-[var(--color-brand-orange)] tracking-[0.3em] md:tracking-[0.4em] text-xs md:text-sm uppercase mb-6 font-semibold">
+            Introducing SkyPilot
+          </p>
+          <h1 className="intro-head font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white max-w-5xl mx-auto leading-tight md:leading-[1.1] tracking-tight mb-2 drop-shadow-lg">
+            Elevating Perspectives with Drone Shoot Services
+          </h1>
+          <h2 className="intro-head font-oswald text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-brand-orange)] tracking-tight drop-shadow-md">
+            Realestate Centric
+          </h2>
+        </div>
         <ScrollFrameSequence 
           frameCount={280} 
           frameBasePath={getFramePath}
