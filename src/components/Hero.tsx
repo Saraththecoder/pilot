@@ -36,26 +36,22 @@ export default function Hero() {
       gsap.to(".intro-sub", { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 3.8 });
       gsap.to(".intro-head", { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 4.0 });
 
-      // Animate overlay content to fade in at the very end of the scroll (last 20%)
-      const tl = gsap.timeline({
+      // Initially hide the overlay and the pop-up card
+      gsap.set(overlayRef.current, { opacity: 0 });
+      gsap.set('.hero-anim', { opacity: 0, y: 100, scale: 0.95 });
+
+      // Animate the pop-up overlay precisely during the final 20% of the scroll sequence
+      const popupTl = gsap.timeline({
         scrollTrigger: {
           trigger: "#hero-container",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: true, // This allows the animation to automatically reverse when scrolling back up!
+          start: "80% top", // Starts when we have scrolled 80% of the container
+          end: "bottom top", // Ends when the container is fully scrolled out
+          scrub: 0.5, // Add a tiny bit of smoothing to the reverse/forward
         }
       });
-      
-      // Delay animation until 80% scroll
-      tl.addLabel("startOverlay", 0.8);
-      
-      // Initially hide the overlay and its children
-      gsap.set(overlayRef.current, { opacity: 0 });
-      gsap.set('.hero-anim', { opacity: 0, y: 50 });
 
-      // Animate them in based on scrub from 80% to 100%
-      tl.to(overlayRef.current, { opacity: 1, duration: 0.02 }, "startOverlay")
-        .to('.hero-anim', { opacity: 1, y: 0, stagger: 0.04, duration: 0.18, ease: "power2.out" }, "startOverlay");
+      popupTl.to(overlayRef.current, { opacity: 1, duration: 0.1 })
+             .to('.hero-anim', { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power2.out" }, "<");
     });
 
     return () => {
