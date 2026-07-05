@@ -16,7 +16,7 @@ export default function Hero() {
   
   // Format frame index to zero-padded string, e.g., '001'
   const getFramePath = useCallback((index: number) => {
-    // ezgif-frame-001.jpg ... ezgif-frame-157.jpg
+    // ezgif-frame-001.jpg ... ezgif-frame-040.jpg
     const paddedIndex = index.toString().padStart(3, "0");
     return `/frames/ezgif-frame-${paddedIndex}.jpg`;
   }, []);
@@ -77,7 +77,7 @@ export default function Hero() {
       */}
       <div id="hero-container">
         <ScrollFrameSequence 
-          frameCount={157} 
+          frameCount={40} 
           frameBasePath={getFramePath}
           scrollHeight="300vh"
         >
