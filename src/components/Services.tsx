@@ -11,62 +11,7 @@ export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const mm = gsap.matchMedia();
-
-    const ctx = gsap.context(() => {
-      if (containerRef.current) {
-        const rows = gsap.utils.toArray<HTMLElement>('.service-row');
-        
-        // Desktop animations (dramatic flying entrance)
-        mm.add("(min-width: 768px)", () => {
-          rows.forEach((row) => {
-            const textBlock = row.querySelector('.service-text');
-            const imageBlock = row.querySelector('.service-image');
-            const isReversed = row.classList.contains('md:flex-row-reverse');
-            
-            // Text flies in from the side with rotation
-            gsap.fromTo(textBlock,
-              { opacity: 0, x: isReversed ? 100 : -100, rotateY: isReversed ? -15 : 15, scale: 0.9 },
-              { opacity: 1, x: 0, rotateY: 0, scale: 1, duration: 1.2, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 80%" }}
-            );
-
-            // Image flies in from the opposite side with rotation and scale
-            gsap.fromTo(imageBlock,
-              { opacity: 0, x: isReversed ? -120 : 120, rotateY: isReversed ? 20 : -20, scale: 0.8, rotateZ: isReversed ? -3 : 3 },
-              { opacity: 1, x: 0, rotateY: 0, scale: 1, rotateZ: 0, duration: 1.4, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 80%" }}
-            );
-            
-            // Parallax on scroll
-            gsap.to(imageBlock, {
-              yPercent: -10, ease: "none", scrollTrigger: { trigger: row, start: "top bottom", end: "bottom top", scrub: true }
-            });
-          });
-        });
-
-        // Mobile animations (flying up with rotation)
-        mm.add("(max-width: 767px)", () => {
-          rows.forEach((row) => {
-            const textBlock = row.querySelector('.service-text');
-            const imageBlock = row.querySelector('.service-image');
-            
-            gsap.fromTo(imageBlock,
-              { opacity: 0, y: 80, scale: 0.85, rotateX: 15 },
-              { opacity: 1, y: 0, scale: 1, rotateX: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 85%" }}
-            );
-
-            gsap.fromTo(textBlock,
-              { opacity: 0, y: 50, rotateX: 10 },
-              { opacity: 1, y: 0, rotateX: 0, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: textBlock, start: "top 90%" }}
-            );
-          });
-        });
-      }
-    }, sectionRef);
-
-    return () => {
-      ctx.revert();
-      mm.revert();
-    };
+    // Animations removed as requested
   }, []);
 
   const services = [
@@ -78,7 +23,7 @@ export default function Services() {
     {
       title: "Drone Videography",
       description: "Cinematic aerial motion pictures captured with heavy-lift platforms carrying industry-standard cinema cameras (RED, ARRI). We provide buttery-smooth tracking shots, sweeping vistas, and complex dynamic movements for feature films, commercials, and high-end productions.",
-      image: "/images/drone_videography_1783188561895.png",
+      image: "/images/drone_cinematic.png",
     },
     {
       title: "Construction Progress",
@@ -106,7 +51,7 @@ export default function Services() {
       image: "/images/real_estate_marketing_1783188637280.png",
     },
     {
-      title: "Content Creation",
+      title: "Professional Live Streaming",
       description: "Professional post-production to turn raw aerial footage into polished content. Our team handles color grading, stabilization, sound design, and motion graphics to deliver final cuts ready for social media or broadcast.",
       image: "/images/content_creation_1783188651388.png",
     }

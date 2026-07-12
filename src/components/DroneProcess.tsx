@@ -122,7 +122,7 @@ export default function DroneProcess() {
       {/* Background Styling */}
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at center, var(--color-brand-orange) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
-      <div className="text-center mb-20 relative z-10 px-4">
+      <div className="text-center mb-12 md:mb-20 relative z-10 px-4">
         <h2 className="font-oswald text-4xl md:text-5xl lg:text-6xl uppercase font-bold text-white mb-4">
           Our <span className="text-[var(--color-brand-orange)]">Process</span>
         </h2>
@@ -149,7 +149,7 @@ export default function DroneProcess() {
           {steps.map((step, index) => (
             <div 
               key={index} 
-              className={`min-h-[70vh] md:min-h-screen w-full flex items-center px-4 md:px-0 ${
+              className={`min-h-[30vh] md:min-h-[50vh] py-12 md:py-0 w-full flex items-center px-4 md:px-0 ${
                 step.side === 'left' ? 'justify-start md:justify-end' : 'justify-end md:justify-start'
               }`}
             >

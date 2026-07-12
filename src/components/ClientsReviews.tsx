@@ -112,38 +112,15 @@ export default function ClientsReviews() {
           </div>
         </div>
 
-        {/* Infinite Marquee of Client Logos */}
-        <div className="relative w-full overflow-hidden flex bg-[#111111]/50 py-12 border-y border-gray-800/50 mt-12 rounded-2xl gpu-accelerated">
-          {/* Fading edges */}
-          <div className="absolute top-0 bottom-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none rounded-l-2xl"></div>
-          <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none rounded-r-2xl"></div>
-
-          <div className="flex animate-marquee whitespace-nowrap items-center hover-target">
-            {/* Duplicated block for seamless loop */}
-            {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex gap-8 md:gap-16 px-4 md:px-8 items-center">
-                {/* Client Logos */}
-                {['/client1.png', '/client2.png', '/client3.png', '/client4.png', '/client5.png'].map((src, idx) => (
-                  <div key={idx} className="w-48 h-24 md:w-72 md:h-36 flex items-center justify-center shrink-0 overflow-hidden">
-                    <img src={src} alt={`Client ${idx + 1}`} className="w-full h-full object-contain p-4" />
-                  </div>
-                ))}
+        {/* Client Logos Grid */}
+        <div className="w-full bg-[#111111]/50 py-12 border border-gray-800/50 mt-12 rounded-2xl">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 px-4 md:px-8 items-center justify-items-center">
+            {['/client1.png', '/client2.png', '/client3.png', '/client4.png', '/client5.png'].map((src, idx) => (
+              <div key={idx} className="w-32 h-24 md:w-48 md:h-32 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform duration-300">
+                <img src={src} alt={`Client ${idx + 1}`} className="w-full h-full object-contain p-2 md:p-4" />
               </div>
             ))}
           </div>
-          
-          <style jsx>{`
-            @keyframes marquee {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(-50%); }
-            }
-            .animate-marquee {
-              animation: marquee 30s linear infinite;
-            }
-            .animate-marquee:hover {
-              animation-play-state: paused;
-            }
-          `}</style>
         </div>
       </div>
     </section>
