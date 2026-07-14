@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ScrollFrameSequence from "./ScrollFrameSequence";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone, X } from "lucide-react";
@@ -13,46 +12,27 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Hero() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const [isPopupClosed, setIsPopupClosed] = useState(false);
-  
-  // Format frame index to zero-padded string, e.g., '001'
-  const getFramePath = useCallback((index: number) => {
-    // ezgif-frame-001.jpg ... ezgif-frame-280.jpg
-    const paddedIndex = index.toString().padStart(3, "0");
-    return `/frames/ezgif-frame-${paddedIndex}.jpg`;
-  }, []);
+  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!overlayRef.current) return;
 
-    // We animate the overlay opacity based on the scroll progress of the hero section.
-    // The ScrollFrameSequence component pins its container for '300vh'.
-    
     const ctxGSAP = gsap.context(() => {
       // Hide the text initially so it doesn't show during splash screen
       gsap.set(".intro-sub", { opacity: 0, y: 20 });
       gsap.set(".intro-head", { opacity: 0, y: 30 });
-      
-      // Animate the intro text after the splash screen finishes (approx 3.8s)
-      gsap.to(".intro-sub", { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 3.8 });
-      gsap.to(".intro-head", { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 4.0 });
-
-      // Initially hide the overlay and the pop-up card
       gsap.set(overlayRef.current, { opacity: 0 });
-      gsap.set('.hero-anim', { opacity: 0, y: 100, scale: 0.95 });
+      gsap.set('.hero-anim', { opacity: 0, y: 50, scale: 0.95 });
 
-      // Animate the pop-up overlay earlier in the scroll sequence
-      const popupTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#hero-container",
-          start: "60% top", // Starts fading in much earlier
-          end: "85% top", // Fully visible before the end of the scroll
-          scrub: 0.5, // Smooth scrubbing
-        }
-      });
+      // Create a timeline that starts after the splash screen finishes (approx 3.8s)
+      const tl = gsap.timeline({ delay: 3.8 });
 
-      popupTl.to(overlayRef.current, { opacity: 1, duration: 0.1 })
-             .to('.hero-anim', { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power2.out" }, "<");
-    });
+      tl.to(".intro-sub", { opacity: 1, y: 0, duration: 1, ease: "power3.out" })
+        .to(".intro-head", { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out" }, "-=0.8")
+        // Animate the pop-up card in slightly after the text appears
+        .to(overlayRef.current, { opacity: 1, duration: 0.5 }, "+=0.2")
+        .to('.hero-anim', { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.7)" }, "<");
+    }, heroRef);
 
     return () => {
       ctxGSAP.revert();
@@ -60,10 +40,23 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative w-full bg-black flex flex-col">
-      <div id="hero-container" className="relative">
+    <section id="home" className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-black pt-20" ref={heroRef}>
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/drone_cinematic.png"
+          alt="Cinematic Drone Shot"
+          fill
+          className="object-cover opacity-50"
+          priority
+        />
+        {/* Subtle gradient overlay to ensure text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black z-10" />
+      </div>
+
+      <div id="hero-container" className="relative z-20 flex-1 flex flex-col justify-center items-center w-full px-4 py-12">
         {/* Intro Section Overlaying the Animation */}
-        <div className="intro-text-section absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center text-center px-4 z-[30] pointer-events-none bg-black/60">
+        <div className="intro-text-section flex flex-col items-center justify-center text-center mb-12">
           <p className="intro-sub font-inter text-[var(--color-brand-orange)] tracking-[0.3em] md:tracking-[0.4em] text-xs md:text-sm uppercase mb-6 font-semibold">
             Introducing SkyPilot
           </p>
@@ -74,35 +67,31 @@ export default function Hero() {
             Realestate Centric
           </h2>
         </div>
-        <ScrollFrameSequence 
-          frameCount={280} 
-          frameBasePath={getFramePath}
-          scrollHeight="400vh"
-        >
-          {/* Overlay Content */}
-          {!isPopupClosed && (
-            <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center p-4">
-              <div 
-                ref={overlayRef}
-                className="hero-overlay-content opacity-0 pointer-events-auto w-full max-w-4xl"
-              >
-                {/* Pop-up Card */}
-                <div className="hero-anim bg-black border border-white/20 p-8 md:p-16 rounded-3xl shadow-[0_0_50px_rgba(245,133,31,0.2)] flex flex-col items-center justify-center text-center w-full relative overflow-hidden">
-                  
-                  {/* Close Button */}
-                  <button 
-                    onClick={() => setIsPopupClosed(true)}
-                    className="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all duration-300 z-50 cursor-pointer"
-                    aria-label="Close pop-up"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
 
-                  {/* Spotlight Glow inside card */}
+        {/* Overlay Content / Pop-up Card */}
+        {!isPopupClosed && (
+          <div className="w-full max-w-4xl flex justify-center">
+            <div 
+              ref={overlayRef}
+              className="hero-overlay-content w-full"
+            >
+              {/* Pop-up Card */}
+              <div className="hero-anim bg-black/80 backdrop-blur-md border border-white/20 p-8 md:p-12 rounded-3xl shadow-[0_0_50px_rgba(245,133,31,0.2)] flex flex-col items-center justify-center text-center w-full relative overflow-hidden">
+                
+                {/* Close Button */}
+                <button 
+                  onClick={() => setIsPopupClosed(true)}
+                  className="absolute top-6 right-6 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all duration-300 z-50 cursor-pointer"
+                  aria-label="Close pop-up"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+
+                {/* Spotlight Glow inside card */}
                 <div className="absolute inset-0 spotlight-glow opacity-50 z-[-1]" />
                 
                 {/* Logo Mark */}
-                <div className="relative w-24 h-24 md:w-32 md:h-32 mb-6 drop-shadow-2xl">
+                <div className="relative w-20 h-20 md:w-28 md:h-28 mb-6 drop-shadow-2xl">
                   <Image 
                     src="/logo.png" 
                     alt="SkyPilot Logo Mark" 
@@ -115,13 +104,13 @@ export default function Hero() {
                 </div>
                 
                 {/* Wordmark */}
-                <h1 className="font-oswald text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
+                <h1 className="font-oswald text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-wider mb-2 drop-shadow-lg" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
                   <span className="text-gradient-silver mr-3 md:mr-4">Sky</span>
                   <span className="text-[var(--color-brand-orange)]">Pilot</span>
                 </h1>
                 
                 {/* Tagline */}
-                <p className="font-inter text-xs md:text-lg uppercase tracking-[0.3em] md:tracking-[0.5em] text-gray-300 mb-8 max-w-2xl px-4" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
+                <p className="font-inter text-xs md:text-sm uppercase tracking-[0.3em] md:tracking-[0.5em] text-gray-300 mb-8 max-w-2xl px-4" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)' }}>
                   Aerial Cinematography
                 </p>
                 
@@ -130,7 +119,7 @@ export default function Hero() {
                   href="https://wa.me/919391705935"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover-target bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-4 rounded-full font-oswald text-lg md:text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-6"
+                  className="hover-target bg-[var(--color-brand-orange)] text-[var(--color-brand-dark)] px-8 py-3 rounded-full font-oswald text-lg md:text-xl tracking-wide font-bold hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(245,133,31,0.4)] hover:shadow-[0_0_30px_rgba(245,133,31,0.6)] mb-6"
                 >
                   Get a Free Quote
                 </a>
@@ -155,8 +144,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
-          )}
-        </ScrollFrameSequence>
+        )}
       </div>
     </section>
   );

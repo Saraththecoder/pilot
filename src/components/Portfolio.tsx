@@ -6,6 +6,8 @@ import { Play, X, Image as ImageIcon } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Portfolio() {
   const [selectedMedia, setSelectedMedia] = useState<number | null>(null);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -111,11 +113,17 @@ export default function Portfolio() {
 
   // Gallery data
   const galleryItems = [
-    { id: 1, type: "image", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1 sm:row-span-2", image: "/images/portfolio_1_1783188665088.png" },
-    { id: 2, type: "image", span: "col-span-1 row-span-1", image: "/images/portfolio_2_1783188683301.png" },
-    { id: 3, type: "image", span: "col-span-1 row-span-1", image: "/images/portfolio_3_1783188694749.png" },
-    { id: 4, type: "image", span: "col-span-1 sm:row-span-2", image: "/images/portfolio_4_1783188705138.png" },
-    { id: 5, type: "image", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1", image: "/images/portfolio_5_1783188724885.png" },
+    { id: 1, type: "video", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1 sm:row-span-2", src: "/videos/drone1.MP4" },
+    { id: 2, type: "video", span: "col-span-1 row-span-1", src: "/videos/drone2.MP4" },
+    { id: 3, type: "video", span: "col-span-1 row-span-1", src: "/videos/drone3.MP4" },
+    { id: 4, type: "video", span: "col-span-1 sm:row-span-2", src: "/videos/drone4.MP4" },
+    { id: 5, type: "video", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1", src: "/videos/drone5.MP4" },
+    { id: 6, type: "video", span: "col-span-1 row-span-1", src: "/videos/drone6.MP4" },
+    { id: 7, type: "video", span: "col-span-1 row-span-1", src: "/videos/drone7.MP4" },
+    { id: 8, type: "video", span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-1", src: "/videos/drone8.MP4" },
+    { id: 9, type: "video", span: "col-span-1 row-span-1", src: "/videos/drone9.MP4" },
+    { id: 10, type: "video", span: "col-span-1 row-span-1", src: "/videos/drone10.MP4" },
+    { id: 11, type: "video", span: "col-span-1 sm:col-span-2 md:col-span-4 row-span-1 sm:row-span-2", src: "/videos/drone11.MP4" },
   ];
 
   return (
@@ -151,13 +159,23 @@ export default function Portfolio() {
               style={{ transformStyle: "preserve-3d" }}
             >
               <div className="absolute inset-0 z-10">
-                <img src={item.image} alt={`Portfolio ${item.id}`} className="w-full h-full object-cover" />
+                {item.type === "image" ? (
+                  <img src={item.src} alt={`Portfolio ${item.id}`} className="w-full h-full object-cover" />
+                ) : (
+                  <video 
+                    src={`${item.src}#t=0.001`} 
+                    className="w-full h-full object-cover" 
+                    preload="metadata" 
+                    muted 
+                    playsInline 
+                  />
+                )}
               </div>
               
               {/* Overlay on hover */}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-center justify-center">
-                <span className="text-white font-oswald tracking-widest uppercase border border-white px-4 py-2 rounded-full">
-                  View Image
+                <span className="text-white font-oswald tracking-widest uppercase border border-white px-4 py-2 rounded-full flex items-center gap-2">
+                  {item.type === "video" ? <><Play className="w-4 h-4" /> Play Video</> : <><ImageIcon className="w-4 h-4" /> View Image</>}
                 </span>
               </div>
             </div>
@@ -166,7 +184,7 @@ export default function Portfolio() {
 
       </div>
 
-      {/* Lightbox Modal (Image) */}
+      {/* Lightbox Modal (Media) */}
       <AnimatePresence>
         {selectedMedia !== null && (
           <motion.div
@@ -182,11 +200,21 @@ export default function Portfolio() {
               <X className="w-8 h-8" />
             </button>
             <div className="relative w-full max-w-5xl aspect-video bg-[var(--color-brand-card)] border border-gray-800 rounded-xl flex items-center justify-center overflow-hidden">
-              <img 
-                src={galleryItems.find(item => item.id === selectedMedia)?.image} 
-                alt={`Portfolio ${selectedMedia}`} 
-                className="w-full h-full object-contain"
-              />
+              {galleryItems.find(item => item.id === selectedMedia)?.type === "image" ? (
+                <img 
+                  src={galleryItems.find(item => item.id === selectedMedia)?.src} 
+                  alt={`Portfolio ${selectedMedia}`} 
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <video 
+                  src={galleryItems.find(item => item.id === selectedMedia)?.src} 
+                  className="w-full h-full object-contain"
+                  controls
+                  autoPlay
+                  playsInline
+                />
+              )}
             </div>
           </motion.div>
         )}

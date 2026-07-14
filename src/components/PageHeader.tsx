@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 
+gsap.registerPlugin(ScrollTrigger);
+
 interface PageHeaderProps {
   title: string;
   description: string;

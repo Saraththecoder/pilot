@@ -21,7 +21,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
-    { name: "Gallery", href: "#portfolio" },
+    { name: "Gallery", href: "/portfolio" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -40,7 +40,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center gap-3">
               <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center overflow-hidden mix-blend-screen">
                 <Image 
-                  src="/logo.png" 
+                  src="/navbar-logo.png" 
                   alt="SkyPilot Logo" 
                   fill 
                   className="object-contain scale-125"
