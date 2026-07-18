@@ -1,15 +1,15 @@
-import About from "@/components/About";
-import PageHeader from "@/components/PageHeader";
+import AboutHero from "@/components/AboutHero";
+import FounderStory from "@/components/FounderStory";
+import ExperienceTimeline from "@/components/ExperienceTimeline";
+import TrustedLeaders from "@/components/TrustedLeaders";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
-      <PageHeader 
-        title="About SkyPilot"
-        description="Discover our mission to redefine aerial solutions across India with cutting-edge technology and uncompromising safety."
-        bgImage="/frames/ezgif-frame-030.jpg"
-      />
-      <About />
+    <div className="min-h-screen bg-[var(--color-brand-dark)]">
+      <AboutHero />
+      <FounderStory />
+      <ExperienceTimeline />
+      <TrustedLeaders />
     </div>
   );
 }

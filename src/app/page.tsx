@@ -1,29 +1,19 @@
 import Hero from "@/components/Hero";
-import ParallaxShowcase from "@/components/ParallaxShowcase";
-import About from "@/components/About";
-import StatsCounter from "@/components/StatsCounter";
 import Services from "@/components/Services";
-import DroneProcess from "@/components/DroneProcess";
 import WhyChooseUs from "@/components/WhyChooseUs";
+import StatsCounter from "@/components/StatsCounter";
 import Portfolio from "@/components/Portfolio";
-import ClientsReviews from "@/components/ClientsReviews";
 import CallToAction from "@/components/CallToAction";
-import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <ParallaxShowcase />
-      <About />
-      <StatsCounter />
       <Services />
-      <DroneProcess />
       <WhyChooseUs />
+      <StatsCounter />
       <Portfolio />
-      <ClientsReviews />
       <CallToAction />
-      <Contact />
     </>
   );
 }

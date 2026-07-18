@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Calendar, FolderCheck, Smile, MapPin } from "lucide-react";
+import { FolderCheck, Smile, Calendar, Target } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,33 +19,14 @@ export default function StatsCounter() {
   const counterRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   const stats: StatItem[] = [
-    { icon: <Calendar className="w-8 h-8" />, value: 5, suffix: "+", label: "Years Experience" },
     { icon: <FolderCheck className="w-8 h-8" />, value: 500, suffix: "+", label: "Projects Completed" },
-    { icon: <Smile className="w-8 h-8" />, value: 100, suffix: "+", label: "Happy Clients" },
-    { icon: <MapPin className="w-8 h-8" />, value: 50, suffix: "+", label: "Cities Covered" },
+    { icon: <Smile className="w-8 h-8" />, value: 200, suffix: "+", label: "Happy Clients" },
+    { icon: <Calendar className="w-8 h-8" />, value: 8, suffix: "+", label: "Years Experience" },
+    { icon: <Target className="w-8 h-8" />, value: 15, suffix: "+", label: "Industries Served" },
   ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate the counter section entrance
-      gsap.fromTo(
-        ".stat-card",
-        { opacity: 0, y: 60, scale: 0.8 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-          },
-        }
-      );
-
-      // Animate each counter number
       counterRefs.current.forEach((ref, idx) => {
         if (!ref) return;
         const target = stats[idx].value;
@@ -57,7 +38,7 @@ export default function StatsCounter() {
           ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
+            start: "top 85%",
           },
           onUpdate: () => {
             if (ref) {
@@ -69,49 +50,38 @@ export default function StatsCounter() {
     }, sectionRef);
 
     return () => ctx.revert();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [stats]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-20 bg-[#050505] relative overflow-hidden"
-    >
-      {/* Background glow */}
-      <div className="absolute inset-0 spotlight-glow opacity-40 pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="stat-card flex flex-col items-center text-center p-6 md:p-8 rounded-2xl bg-[var(--color-brand-card)] border border-gray-800 hover:border-[var(--color-brand-orange)]/50 hover:shadow-[0_0_30px_rgba(245,133,31,0.15)] transition-all duration-500 gpu-accelerated"
-            >
-              {/* Icon */}
-              <div className="text-[var(--color-brand-orange)] mb-4 p-3 bg-black/50 rounded-full border border-gray-800">
-                {stat.icon}
+    <section ref={sectionRef} className="py-12 bg-[var(--color-brand-dark)] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div className="bg-[#111111] border border-white/5 rounded-2xl p-8 lg:p-12 shadow-2xl">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x-0 lg:divide-x lg:divide-white/10">
+            {stats.map((stat, idx) => (
+              <div key={idx} className="flex flex-col lg:flex-row items-center justify-center gap-6 px-4">
+                <div className="text-[var(--color-brand-orange)]">
+                  {stat.icon}
+                </div>
+                <div className="text-center lg:text-left">
+                  <div className="flex items-baseline justify-center lg:justify-start gap-1 mb-1">
+                    <span 
+                      ref={(el) => { counterRefs.current[idx] = el; }} 
+                      className="font-oswald text-4xl lg:text-5xl font-bold text-[var(--color-brand-orange)]"
+                    >
+                      0
+                    </span>
+                    <span className="font-oswald text-4xl lg:text-5xl font-bold text-[var(--color-brand-orange)]">
+                      {stat.suffix}
+                    </span>
+                  </div>
+                  <p className="font-inter text-gray-300 text-sm">{stat.label}</p>
+                </div>
               </div>
-
-              {/* Counter */}
-              <div className="flex items-baseline gap-1 mb-2">
-                <span
-                  ref={(el) => { counterRefs.current[idx] = el; }}
-                  className="counter-number font-oswald text-4xl md:text-5xl font-bold text-[var(--color-brand-orange)]"
-                >
-                  0
-                </span>
-                <span className="font-oswald text-3xl md:text-4xl font-bold text-[var(--color-brand-orange)]">
-                  {stat.suffix}
-                </span>
-              </div>
-
-              {/* Label */}
-              <span className="font-inter text-xs md:text-sm uppercase tracking-[0.2em] text-gray-400">
-                {stat.label}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );

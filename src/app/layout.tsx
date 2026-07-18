@@ -35,9 +35,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${oswald.variable} ${inter.variable} h-full antialiased`}
+      className={`${oswald.variable} ${inter.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[var(--color-brand-dark)] text-white">
+      <body className="bg-[var(--color-brand-dark)] text-white flex flex-col min-h-screen">
         <SmoothScroll>
           <SplashScreen />
           <CustomCursor />
