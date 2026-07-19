@@ -34,21 +34,25 @@ export default function Services() {
       title: "DRONE VIDEOGRAPHY",
       description: "Cinematic aerial videos for events, promos, real estate & more.",
       image: "/images/service_videography_1784385709104.png",
+      contactValue: "Drone Videography"
     },
     {
       title: "AERIAL PHOTOGRAPHY",
       description: "High-resolution aerial photography for stunning visual storytelling.",
       image: "/images/service_photography_1784385720914.png",
+      contactValue: "Drone Photography"
     },
     {
       title: "DRONE SURVEY",
       description: "Topographic mapping, volumetric analysis & land surveys.",
       image: "/images/service_survey_1784385731660.png",
+      contactValue: "Land Survey & Mapping"
     },
     {
       title: "INDUSTRIAL INSPECTION",
       description: "Safe, efficient inspections of solar, windmills, factories & more.",
       image: "/images/service_inspection_1784385743368.png",
+      contactValue: "Industrial Inspection"
     }
   ];
 
@@ -81,7 +85,7 @@ export default function Services() {
           <div className="w-full lg:w-3/4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service, idx) => (
-                <div key={idx} className="service-card group cursor-pointer border border-white/5 bg-[#111111] rounded-lg overflow-hidden flex flex-col transition-colors duration-300 hover:border-white/20">
+                <Link key={idx} href={`/contact?service=${encodeURIComponent(service.contactValue)}`} className="service-card group cursor-pointer border border-white/5 bg-[#111111] rounded-lg overflow-hidden flex flex-col transition-colors duration-300 hover:border-white/20">
                   <div className="relative h-40 w-full overflow-hidden">
                     <Image 
                       src={service.image} 
@@ -102,7 +106,7 @@ export default function Services() {
                       <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-[var(--color-brand-orange)] transition-colors" />
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

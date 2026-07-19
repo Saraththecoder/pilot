@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Play, Shield, Star, Camera, Target } from "lucide-react";
+import { ArrowRight, Play, Shield, Star, Camera, Target, X } from "lucide-react";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -72,6 +73,7 @@ export default function Hero() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <button
+                onClick={() => setShowVideo(true)}
                 className="border-2 border-[var(--color-brand-orange)] text-[var(--color-brand-orange)] px-8 py-4 rounded font-inter text-sm tracking-widest font-bold hover:bg-[var(--color-brand-orange)] hover:text-[var(--color-brand-dark)] transition-all flex items-center justify-center gap-2 group"
               >
                 WATCH SHOWREEL
@@ -139,6 +141,32 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Video Modal */}
+      {showVideo && (
+        <div 
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-md"
+          onClick={() => setShowVideo(false)}
+        >
+          <div 
+            className="relative w-full max-w-6xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl border border-white/10"
+            onClick={e => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setShowVideo(false)} 
+              className="absolute top-4 right-4 text-white z-10 bg-black/50 p-2 rounded-full hover:bg-[var(--color-brand-orange)] transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <video 
+              src="/videos/drone5.MP4" 
+              controls 
+              autoPlay 
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

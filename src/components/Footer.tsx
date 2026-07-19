@@ -13,28 +13,28 @@ export default function Footer() {
           
           {/* Brand Col */}
           <div className="lg:col-span-1">
-            <div className="relative w-40 h-10 mb-6">
+            <div className="relative w-56 h-14 mb-6">
               <Image 
                 src="/logo.png" 
                 alt="SkyPilot Logo" 
                 fill 
-                className="object-contain object-left"
+                className="object-contain object-left scale-[1.65] origin-left"
               />
             </div>
             <p className="font-inter text-gray-400 text-xs leading-relaxed mb-6 pr-4">
               We provide professional drone videography and survey services with a focus on quality, safety, and precision.
             </p>
             <div className="flex gap-4 text-gray-400">
-              <a href="#" className="hover:text-[var(--color-brand-orange)] transition-colors">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-brand-orange)] transition-colors">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               </a>
-              <a href="#" className="hover:text-[var(--color-brand-orange)] transition-colors">
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-brand-orange)] transition-colors">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
               </a>
-              <a href="#" className="hover:text-[var(--color-brand-orange)] transition-colors">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-brand-orange)] transition-colors">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
               </a>
-              <a href="#" className="hover:text-[var(--color-brand-orange)] transition-colors text-xl font-bold font-serif leading-none">whatsapp</a>
+              <a href="https://wa.me/919391705935" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-brand-orange)] transition-colors text-xl font-bold font-serif leading-none">whatsapp</a>
             </div>
           </div>
 

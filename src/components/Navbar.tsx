@@ -39,12 +39,12 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-3">
-              <div className="relative w-48 h-12 flex items-center justify-center">
+              <div className="relative w-64 h-16 flex items-center justify-center">
                 <Image 
                   src="/logo.png" 
                   alt="SkyPilot Logo" 
                   fill 
-                  className="object-contain object-left"
+                  className="object-contain object-left scale-[1.65] origin-left"
                 />
               </div>
             </Link>

@@ -1,5 +1,6 @@
 import Contact from "@/components/Contact";
 import PageHeader from "@/components/PageHeader";
+import { Suspense } from "react";
 
 export default function ContactPage() {
   return (
@@ -9,7 +10,9 @@ export default function ContactPage() {
         description="Ready to elevate your project? Get in touch with our team for a free consultation and customized quote."
         bgImage="/frames/ezgif-frame-120.jpg"
       />
-      <Contact />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Contact />
+      </Suspense>
     </div>
   );
 }

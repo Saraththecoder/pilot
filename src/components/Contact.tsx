@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { MapPin, Phone, Mail, MessageCircle, Send } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -74,15 +75,6 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    service: "",
-    message: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
-
   const services = [
     "Drone Photography",
     "Drone Videography",
@@ -93,6 +85,19 @@ export default function Contact() {
     "Real Estate Marketing",
     "Video Editing & Content Creation"
   ];
+
+  const searchParams = useSearchParams();
+  const serviceParam = searchParams.get("service");
+  const decodedService = serviceParam ? decodeURIComponent(serviceParam) : "";
+
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    service: services.includes(decodedService) ? decodedService : "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
