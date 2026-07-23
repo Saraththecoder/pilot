@@ -20,32 +20,22 @@ export default function Hero() {
         ease: "power3.out",
         delay: 0.2
       });
-
-      gsap.to(".floating-drone", {
-        y: -30,
-        duration: 3,
-        yoyo: true,
-        repeat: -1,
-        ease: "power1.inOut"
-      });
     }, heroRef);
     return () => ctx.revert();
   }, []);
 
   return (
     <section id="home" className="relative w-full min-h-screen flex flex-col pt-20" ref={heroRef}>
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/hero_drone.png"
-          alt="Cinematic Drone Shot Background"
-          fill
-          className="object-cover"
-          priority
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/videos/drone1.MP4"
         />
-        {/* Subtle gradient overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-brand-dark)] via-[var(--color-brand-dark)]/90 to-black/30 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--color-brand-dark)] z-10" />
       </div>
 
       <div className="relative z-20 flex-1 flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-20 lg:py-32 justify-center">
@@ -84,14 +74,6 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hidden lg:block w-full max-w-lg aspect-square relative hero-element">
-            <Image 
-              src="/images/drone_cinematic.png" 
-              alt="Floating Drone" 
-              fill 
-              className="object-contain floating-drone mix-blend-screen opacity-90"
-            />
-          </div>
         </div>
       </div>
 
