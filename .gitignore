@@ -44,3 +44,7 @@ next-env.d.ts
 public/videos/*.MP4
 public/videos/*.mp4
 !public/videos/hero-bg.MP4
+!public/videos/port-1.MP4
+!public/videos/port-2.MP4
+!public/videos/port-3.MP4
+!public/videos/port-4.MP4

@@ -36,10 +36,10 @@ export default function Portfolio() {
   const filters = ["ALL", "CINEMATOGRAPHY", "SURVEY", "INDUSTRY", "REAL ESTATE"];
 
   const projects = [
-    { title: "River Valley", category: "CINEMATOGRAPHY", image: "/images/portfolio_1_1784385776657.png", video: "/videos/drone1.MP4" },
-    { title: "Solar Field", category: "INDUSTRY", image: "/images/service_inspection_1784385743368.png", video: "/videos/drone2.MP4" },
-    { title: "Construction", category: "SURVEY", image: "/images/portfolio_2_1784385789292.png", video: "/videos/drone3.MP4" },
-    { title: "City Skyline", category: "REAL ESTATE", image: "/images/portfolio_3_1784385800215.png", video: "/videos/drone4.MP4" },
+    { title: "River Valley", category: "CINEMATOGRAPHY", image: "/images/portfolio_1_1784385776657.png", video: "/videos/port-1.MP4" },
+    { title: "Solar Field", category: "INDUSTRY", image: "/images/service_inspection_1784385743368.png", video: "/videos/port-2.MP4" },
+    { title: "Construction", category: "SURVEY", image: "/images/portfolio_2_1784385789292.png", video: "/videos/port-3.MP4" },
+    { title: "City Skyline", category: "REAL ESTATE", image: "/images/portfolio_3_1784385800215.png", video: "/videos/port-4.MP4" },
   ];
 
   const filteredProjects = activeFilter === "ALL" 
