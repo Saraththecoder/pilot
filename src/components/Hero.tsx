@@ -34,7 +34,7 @@ export default function Hero() {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          src="/videos/drone1.MP4"
+          src="/videos/hero-bg.MP4"
         />
       </div>
 
